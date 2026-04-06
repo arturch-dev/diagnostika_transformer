@@ -31,7 +31,7 @@
                 extend: {
                     colors: {
                         brand: {
-                            500: '#ff5a00', // Помаранчевий колір з референсів
+                            500: '#ff5a00',
                             600: '#e04f00',
                         }
                     },
@@ -65,35 +65,54 @@
         }
     </style>
 </head>
-<body class="antialiased">
+<body class="antialiased pb-20 md:pb-0"> <!-- Додано відступ знизу на моб., щоб плаваюча кнопка не закривала контент -->
 
-    <!-- БЛОК 1: HERO -->
-    <section class="relative pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden px-4">
-        <!-- Декоративний фон -->
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-500 opacity-20 blur-[100px] pointer-events-none"></div>
+    <!-- БЛОК 1: HERO (З фоновим фото) -->
+    <section class="relative min-h-[100svh] md:min-h-[85vh] flex flex-col justify-between overflow-hidden">
         
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
-            <div class="flex-1 space-y-6 z-10">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-500 text-sm font-semibold uppercase tracking-wider">
+        <!-- Фонове зображення та градієнти -->
+        <div class="absolute inset-0 z-0 bg-[#09090b]">
+            <!-- ВСТАВ ПОСИЛАННЯ НА ФОТО 1 -->
+            <img src="main.PNG" alt="Автор" class="w-full h-full object-cover object-top md:object-right-top opacity-90" loading="eager">
+            
+            <!-- Градієнт зверху (щоб читалась плашка) -->
+            <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#09090b]/80 to-transparent"></div>
+            
+            <!-- Градієнт знизу (щоб читався основний текст) -->
+            <div class="absolute bottom-0 left-0 right-0 h-2/3 md:h-full bg-gradient-to-t from-[#09090b] via-[#09090b]/90 md:via-[#09090b]/50 to-transparent md:bg-gradient-to-r md:from-[#09090b] md:via-[#09090b]/80 md:to-transparent"></div>
+        </div>
+
+        <!-- Контент Hero -->
+        <div class="relative z-10 w-full max-w-6xl mx-auto flex flex-col h-full flex-grow px-4 pb-12 pt-6">
+            
+            <!-- ВЕРХ: Плашка -->
+            <div class="flex justify-center md:justify-start">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-500/50 bg-black/40 backdrop-blur-md text-brand-500 text-sm font-semibold uppercase tracking-wider shadow-lg">
                     <i data-lucide="zap" class="w-4 h-4"></i>
                     Трансформація починається тут
                 </div>
-                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+            </div>
+
+            <!-- СЕРЕДИНА: Пустий простір, щоб було видно обличчя на мобільному -->
+            <div class="flex-grow min-h-[40vh] md:min-h-[10vh]"></div>
+
+            <!-- НИЗ: Текст і кнопка -->
+            <div class="w-full md:w-[60%] space-y-5 text-center md:text-left mt-auto">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white drop-shadow-xl">
                     Персональна діагностика <span class="text-brand-500">життя</span>
                 </h1>
-                <p class="text-xl text-zinc-300 font-medium leading-relaxed">
+                <p class="text-lg md:text-xl text-zinc-200 font-medium leading-relaxed drop-shadow-md">
                     Візьми контроль над своїм життям і зрозумій, куди рухатись далі — з чіткою системою, а не “як піде”
                 </p>
-                <p class="text-lg text-zinc-400">
+                <p class="text-base md:text-lg text-zinc-300 drop-shadow-md hidden md:block">
                     На діагностиці ти отримаєш розбір своєї поточної ситуації і зрозумілий план дій. Що змінити, щоб з’явився результат, а не просто наміри.
                 </p>
-                <button onclick="openModal()" class="w-full md:w-auto px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:shadow-[0_0_30px_rgba(255,90,0,0.6)] transform hover:-translate-y-1">
-                    ХОЧУ РОЗБІР
-                </button>
-            </div>
-            <div class="flex-1 w-full relative">
-                <!-- ВСТАВ ПОСИЛАННЯ НА ФОТО 1 -->
-                <img src="main.PNG" alt="Автор" class="rounded-2xl object-cover w-full shadow-2xl relative z-10 border border-zinc-800" loading="lazy">
+                <!-- На мобільному цю кнопку ховаємо, бо є плаваюча, АБО залишаємо. Я залишив для логіки -->
+                <div class="pt-2 hidden md:block">
+                    <button onclick="openModal()" class="w-full md:w-auto px-10 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:shadow-[0_0_30px_rgba(255,90,0,0.6)] transform hover:-translate-y-1">
+                        ХОЧУ РОЗБІР
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -101,10 +120,10 @@
     <!-- БЛОК 2: ЩО БУДЕ НА ДІАГНОСТИЦІ -->
     <section class="py-16 md:py-24 bg-zinc-900 px-4">
         <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Що буде на діагностиці</h2>
+            <h2 class="text-3xl md:text-5xl font-bold mb-10 text-center">Що буде на діагностиці</h2>
             
-            <div class="glass-panel p-8 md:p-12 rounded-3xl mb-8">
-                <p class="text-xl mb-6 font-medium">Ми детально розберемо твою ситуацію по ключовим сферам життя:</p>
+            <div class="glass-panel p-6 md:p-12 rounded-3xl mb-8">
+                <p class="text-xl mb-6 font-medium text-center md:text-left">Ми детально розберемо твою ситуацію по ключовим сферам життя:</p>
                 <ul class="space-y-4 mb-8">
                     <li class="flex items-start gap-4">
                         <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i>
@@ -125,7 +144,7 @@
                 </ul>
 
                 <div class="border-t border-zinc-800 pt-8">
-                    <h3 class="text-2xl font-bold mb-6 text-brand-500">Я покажу тобі:</h3>
+                    <h3 class="text-2xl font-bold mb-6 text-brand-500 text-center md:text-left">Я покажу тобі:</h3>
                     <div class="grid md:grid-cols-3 gap-6">
                         <div class="bg-zinc-950/50 p-6 rounded-2xl border border-zinc-800">
                             <i data-lucide="map" class="w-8 h-8 text-white mb-4"></i>
@@ -146,35 +165,35 @@
     </section>
 
     <!-- БЛОК 3: ЩО ТИ ОТРИМАЄШ -->
-    <section class="py-16 md:py-24 px-4 relative">
+    <section class="py-16 md:py-24 px-4 relative bg-[#09090b]">
         <div class="absolute left-0 bottom-0 w-96 h-96 rounded-full bg-brand-500 opacity-10 blur-[120px] pointer-events-none"></div>
         <div class="max-w-5xl mx-auto">
-            <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Після діагностики у тебе буде:</h2>
+            <h2 class="text-3xl md:text-5xl font-bold mb-10 text-center">Після діагностики у тебе буде:</h2>
             
-            <div class="grid md:grid-cols-2 gap-6 mb-12">
-                <div class="glass-panel p-8 rounded-2xl">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-6 mb-12">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl">
                     <i data-lucide="brain" class="w-10 h-10 text-brand-500 mb-4"></i>
                     <h4 class="text-xl font-bold mb-2">Чітке розуміння</h4>
                     <p class="text-zinc-400">що з тобою відбувається і чому</p>
                 </div>
-                <div class="glass-panel p-8 rounded-2xl">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl">
                     <i data-lucide="compass" class="w-10 h-10 text-brand-500 mb-4"></i>
                     <h4 class="text-xl font-bold mb-2">Абсолютна ясність</h4>
                     <p class="text-zinc-400">куди рухатись далі</p>
                 </div>
-                <div class="glass-panel p-8 rounded-2xl">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl">
                     <i data-lucide="list-todo" class="w-10 h-10 text-brand-500 mb-4"></i>
                     <h4 class="text-xl font-bold mb-2">Кнокретний план дій</h4>
                     <p class="text-zinc-400">саме під твою ситуацію</p>
                 </div>
-                <div class="glass-panel p-8 rounded-2xl">
+                <div class="glass-panel p-6 md:p-8 rounded-2xl">
                     <i data-lucide="target" class="w-10 h-10 text-brand-500 mb-4"></i>
                     <h4 class="text-xl font-bold mb-2">Розуміння</h4>
                     <p class="text-zinc-400">за що братись в першу чергу</p>
                 </div>
             </div>
 
-            <div class="text-center bg-brand-500 text-white p-8 rounded-3xl font-bold text-xl md:text-2xl shadow-[0_0_30px_rgba(255,90,0,0.3)]">
+            <div class="text-center bg-brand-500 text-white p-6 md:p-8 rounded-3xl font-bold text-xl md:text-2xl shadow-[0_0_30px_rgba(255,90,0,0.3)]">
                 Це точка, з якої в багатьох починається реальний рух і результат
             </div>
         </div>
@@ -182,29 +201,38 @@
 
     <!-- БЛОК 4: АВТОР -->
     <section class="py-16 md:py-24 bg-zinc-900 px-4">
-        <div class="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12">
-            <div class="flex-1 relative">
+        <!-- Змінено flex-col-reverse на flex-col, щоб фото було зверху на моб. -->
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-12">
+            <div class="flex-1 w-full relative">
                  <!-- ВСТАВ ПОСИЛАННЯ НА ФОТО 2 -->
                 <img src="author.PNG" alt="Автор" class="rounded-2xl object-cover w-full shadow-xl border border-zinc-800" loading="lazy">
             </div>
             <div class="flex-1 space-y-6">
-                <h2 class="text-3xl md:text-4xl font-bold uppercase leading-tight">
+                <h2 class="text-3xl md:text-4xl font-bold uppercase leading-tight text-center md:text-left">
                     Моя особиста трансформація — це <span class="text-brand-500">фундамент</span>
                 </h2>
                 <div class="space-y-4 text-zinc-300 text-lg">
                     <p>Цю програму я не придумав з теорії.</p>
                     <p>Вона зібрана з мого реального досвіду трансформації довжиною понад 6 років — через помилки, пошуки, роботу з мисленням, тілом і внутрішнім станом.</p>
                     <p>Я зібрав у ній інструменти і підходи, які реально працюють і допомогли мені повністю змінити себе та своє життя.</p>
-                    <p class="font-bold text-white border-l-4 border-brand-500 pl-4 py-2 bg-zinc-800/50 rounded-r-lg">
+                    <p class="font-bold text-white border-l-4 border-brand-500 pl-4 py-2 bg-zinc-800/50 rounded-r-lg mt-4">
                         Це не просто знання. Це система, яку я створив на основі власного досвіду.
                     </p>
                 </div>
-                <button onclick="openModal()" class="mt-8 w-full md:w-auto px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:-translate-y-1">
+                <button onclick="openModal()" class="mt-8 hidden md:inline-block px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:-translate-y-1">
                     ОТРИМАТИ ДОСТУП
                 </button>
             </div>
         </div>
     </section>
+
+    <!-- FLOATING BUTTON (Тільки для мобільних) -->
+    <div class="fixed bottom-4 left-4 right-4 z-40 md:hidden pointer-events-none flex justify-center">
+        <button onclick="openModal()" class="w-full max-w-sm pointer-events-auto px-6 py-4 bg-brand-500 text-white text-[17px] font-bold rounded-2xl shadow-[0_10px_30px_rgba(255,90,0,0.6)] border border-brand-400/50 flex justify-center items-center gap-2 active:scale-95 transition-transform">
+            <span>ХОЧУ НА РОЗБІР</span>
+            <i data-lucide="arrow-right" class="w-5 h-5"></i>
+        </button>
+    </div>
 
     <!-- MODAL POPUP -->
     <div id="leadModal" class="fixed inset-0 z-50 hidden flex items-center justify-center px-4">
@@ -246,7 +274,7 @@
                     </div>
                 </div>
 
-                <button type="submit" id="submitBtn" class="w-full py-4 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl transition-all shadow-lg flex justify-center items-center gap-2">
+                <button type="submit" id="submitBtn" class="w-full py-4 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl transition-all shadow-lg flex justify-center items-center gap-2 mt-2">
                     <span>ПІДТВЕРДИТИ</span>
                     <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </button>
@@ -287,7 +315,7 @@
         const phoneInputField = document.querySelector("#phone");
         const iti = window.intlTelInput(phoneInputField, {
             initialCountry: "auto",
-            excludeCountries: ["ru", "by"], // Виключаємо РФ та Білорусь
+            excludeCountries: ["ru", "by"],
             geoIpLookup: function(callback) {
                 fetch("https://get.geojs.io/v1/ip/country.json")
                     .then(resp => resp.json())
