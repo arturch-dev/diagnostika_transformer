@@ -79,7 +79,7 @@
             <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#09090b]/80 to-transparent"></div>
             
             <!-- Градієнт знизу (щоб читався основний текст) -->
-            <div class="absolute bottom-0 left-0 right-0 h-2/3 md:h-full bg-gradient-to-t from-[#09090b] via-[#09090b]/90 md:via-[#09090b]/50 to-transparent md:bg-gradient-to-r md:from-[#09090b] md:via-[#09090b]/80 md:to-transparent"></div>
+            <div class="absolute bottom-0 left-0 right-0 h-[80%] md:h-full bg-gradient-to-t from-[#09090b] via-[#09090b]/95 md:via-[#09090b]/50 to-transparent md:bg-gradient-to-r md:from-[#09090b] md:via-[#09090b]/80 md:to-transparent"></div>
         </div>
 
         <!-- Контент Hero -->
@@ -94,9 +94,9 @@
             </div>
 
             <!-- СЕРЕДИНА: Пустий простір, щоб було видно обличчя на мобільному -->
-            <div class="flex-grow min-h-[40vh] md:min-h-[10vh]"></div>
+            <div class="flex-grow min-h-[30vh] md:min-h-[10vh]"></div>
 
-            <!-- НИЗ: Текст і кнопка -->
+            <!-- НИЗ: Текст, ціна і кнопка -->
             <div class="w-full md:w-[60%] space-y-5 text-center md:text-left mt-auto">
                 <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white drop-shadow-xl">
                     Персональна діагностика <span class="text-brand-500">життя</span>
@@ -107,9 +107,25 @@
                 <p class="text-base md:text-lg text-zinc-300 drop-shadow-md hidden md:block">
                     На діагностиці ти отримаєш розбір своєї поточної ситуації і зрозумілий план дій. Що змінити, щоб з’явився результат, а не просто наміри.
                 </p>
-                <div class="pt-2 hidden md:block">
+
+                <!-- БЛОК ЦІНИ ТА ТАЙМЕРА -->
+                <div class="flex flex-col items-center md:items-start gap-4 pt-2">
+                    <div class="flex items-end justify-center md:justify-start gap-3">
+                        <span class="text-4xl font-extrabold text-brand-500 drop-shadow-lg">590 грн</span>
+                        <span class="text-xl font-medium text-zinc-400 line-through mb-1">2500 грн</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-2 px-4 py-2 bg-zinc-900/80 border border-zinc-700 rounded-lg backdrop-blur-sm inline-flex">
+                        <i data-lucide="timer" class="w-5 h-5 text-brand-500 animate-pulse"></i>
+                        <span class="text-sm text-zinc-300">Знижка згорить через:</span>
+                        <span id="hero-timer" class="text-lg font-bold text-white tracking-widest w-[56px] text-center">10:00</span>
+                    </div>
+                </div>
+
+                <!-- КНОПКА (Тепер видима завжди) -->
+                <div class="pt-2">
                     <button onclick="openModal()" class="w-full md:w-auto px-10 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:shadow-[0_0_30px_rgba(255,90,0,0.6)] transform hover:-translate-y-1">
-                        ХОЧУ РОЗБІР
+                        ОТРИМАТИ РОЗБІР
                     </button>
                 </div>
             </div>
@@ -121,7 +137,7 @@
         <div class="max-w-4xl mx-auto">
             <h2 class="text-3xl md:text-5xl font-bold mb-10 text-center">Що буде на діагностиці</h2>
             
-            <div class="glass-panel p-6 md:p-12 rounded-3xl mb-8">
+            <div class="glass-panel p-6 md:p-12 rounded-3xl">
                 <p class="text-xl mb-6 font-medium text-center md:text-left">Ми детально розберемо твою ситуацію по ключовим сферам життя:</p>
                 <ul class="space-y-4 mb-8">
                     <li class="flex items-start gap-4">
@@ -160,6 +176,14 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- КНОПКА В КІНЦІ БЛОКУ 2 -->
+            <div class="mt-10 flex justify-center">
+                <button onclick="openModal()" class="w-full md:w-auto px-10 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:-translate-y-1">
+                    ОТРИМАТИ РОЗБІР
+                </button>
+            </div>
+
         </div>
     </section>
 
@@ -210,7 +234,6 @@
                     Моя особиста трансформація — це <span class="text-brand-500">фундамент методики Transformer</span>
                 </h2>
                 
-                <!-- ОНОВЛЕНИЙ ТЕКСТ З МАРКЕРАМИ -->
                 <div class="space-y-5 text-zinc-300 text-lg">
                     <div class="flex items-start gap-4">
                         <div class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30">
@@ -342,6 +365,32 @@
                     .catch(() => callback("ua"));
             },
             utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/utils.js",
+        });
+
+        // Countdown Timer Logic
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            const interval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = 0;
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const display = document.querySelector('#hero-timer');
+            if (display) {
+                startTimer(10 * 60, display); // 10 minutes
+            }
         });
 
         // UTM Parsing
