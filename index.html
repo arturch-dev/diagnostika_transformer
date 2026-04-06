@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Персональна діагностика життя | TRANSFORMER</title>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID'); // ВСТАВ СВІЙ ID ПІКСЕЛЯ
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            500: '#ff5a00', // Помаранчевий колір з референсів
+                            600: '#e04f00',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+    <!-- Intl-Tel-Input CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/css/intlTelInput.css" />
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f8fafc; }
+        /* Кастомізація інпуту телефону під темну тему */
+        .iti { width: 100%; }
+        .iti__country-list { background-color: #18181b; color: white; border: 1px solid #3f3f46; }
+        .iti__country.iti__highlight { background-color: #27272a; }
+        .iti__divider { border-bottom: 1px solid #3f3f46; }
+        
+        .glass-panel {
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- БЛОК 1: HERO -->
+    <section class="relative pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden px-4">
+        <!-- Декоративний фон -->
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-brand-500 opacity-20 blur-[100px] pointer-events-none"></div>
+        
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div class="flex-1 space-y-6 z-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-brand-500 text-sm font-semibold uppercase tracking-wider">
+                    <i data-lucide="zap" class="w-4 h-4"></i>
+                    Трансформація починається тут
+                </div>
+                <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+                    Персональна діагностика <span class="text-brand-500">життя</span>
+                </h1>
+                <p class="text-xl text-zinc-300 font-medium leading-relaxed">
+                    Візьми контроль над своїм життям і зрозумій, куди рухатись далі — з чіткою системою, а не “як піде”
+                </p>
+                <p class="text-lg text-zinc-400">
+                    На діагностиці ти отримаєш розбір своєї поточної ситуації і зрозумілий план дій. Що змінити, щоб з’явився результат, а не просто наміри.
+                </p>
+                <button onclick="openModal()" class="w-full md:w-auto px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:shadow-[0_0_30px_rgba(255,90,0,0.6)] transform hover:-translate-y-1">
+                    ХОЧУ РОЗБІР
+                </button>
+            </div>
+            <div class="flex-1 w-full relative">
+                <!-- ВСТАВ ПОСИЛАННЯ НА ФОТО 1 -->
+                <img src="https://placehold.co/600x800/27272a/ff5a00?text=Photo+1" alt="Автор" class="rounded-2xl object-cover w-full shadow-2xl relative z-10 border border-zinc-800" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 2: ЩО БУДЕ НА ДІАГНОСТИЦІ -->
+    <section class="py-16 md:py-24 bg-zinc-900 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Що буде на діагностиці</h2>
+            
+            <div class="glass-panel p-8 md:p-12 rounded-3xl mb-8">
+                <p class="text-xl mb-6 font-medium">Ми детально розберемо твою ситуацію по ключовим сферам життя:</p>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-start gap-4">
+                        <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i>
+                        <span class="text-lg text-zinc-300">де ти зараз знаходишся насправді</span>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i>
+                        <span class="text-lg text-zinc-300">що саме гальмує твій результат</span>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i>
+                        <span class="text-lg text-zinc-300">де ти втрачаєш енергію і фокус</span>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i>
+                        <span class="text-lg text-zinc-300">чому попередні спроби не дали результату</span>
+                    </li>
+                </ul>
+
+                <div class="border-t border-zinc-800 pt-8">
+                    <h3 class="text-2xl font-bold mb-6 text-brand-500">Я покажу тобі:</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-zinc-950/50 p-6 rounded-2xl border border-zinc-800">
+                            <i data-lucide="map" class="w-8 h-8 text-white mb-4"></i>
+                            <p class="text-zinc-300">твою точку А і куди ти реально можеш прийти</p>
+                        </div>
+                        <div class="bg-zinc-950/50 p-6 rounded-2xl border border-zinc-800">
+                            <i data-lucide="trending-up" class="w-8 h-8 text-white mb-4"></i>
+                            <p class="text-zinc-300">основні зони<br>росту</p>
+                        </div>
+                        <div class="bg-zinc-950/50 p-6 rounded-2xl border border-zinc-800">
+                            <i data-lucide="key" class="w-8 h-8 text-white mb-4"></i>
+                            <p class="text-zinc-300">що саме змінити, щоб зрушити з місця</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 3: ЩО ТИ ОТРИМАЄШ -->
+    <section class="py-16 md:py-24 px-4 relative">
+        <div class="absolute left-0 bottom-0 w-96 h-96 rounded-full bg-brand-500 opacity-10 blur-[120px] pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center">Після діагностики у тебе буде:</h2>
+            
+            <div class="grid md:grid-cols-2 gap-6 mb-12">
+                <div class="glass-panel p-8 rounded-2xl">
+                    <i data-lucide="brain" class="w-10 h-10 text-brand-500 mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">Глибоке розуміння</h4>
+                    <p class="text-zinc-400">чітке розуміння, що з тобою відбувається і чому</p>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl">
+                    <i data-lucide="compass" class="w-10 h-10 text-brand-500 mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">Вектор руху</h4>
+                    <p class="text-zinc-400">абсолютна ясність, куди рухатись далі</p>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl">
+                    <i data-lucide="list-todo" class="w-10 h-10 text-brand-500 mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">Алгоритм</h4>
+                    <p class="text-zinc-400">конкретний план дій під твою ситуацію</p>
+                </div>
+                <div class="glass-panel p-8 rounded-2xl">
+                    <i data-lucide="target" class="w-10 h-10 text-brand-500 mb-4"></i>
+                    <h4 class="text-xl font-bold mb-2">Пріоритети</h4>
+                    <p class="text-zinc-400">розуміння, за що братись в першу чергу</p>
+                </div>
+            </div>
+
+            <div class="text-center bg-brand-500 text-white p-8 rounded-3xl font-bold text-xl md:text-2xl shadow-[0_0_30px_rgba(255,90,0,0.3)]">
+                Це точка, з якої в багатьох починається реальний рух і результат
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК 4: АВТОР -->
+    <section class="py-16 md:py-24 bg-zinc-900 px-4">
+        <div class="max-w-6xl mx-auto flex flex-col-reverse md:flex-row items-center gap-12">
+            <div class="flex-1 relative">
+                 <!-- ВСТАВ ПОСИЛАННЯ НА ФОТО 2 -->
+                <img src="https://placehold.co/600x800/27272a/ff5a00?text=Photo+2" alt="Автор" class="rounded-2xl object-cover w-full shadow-xl border border-zinc-800" loading="lazy">
+            </div>
+            <div class="flex-1 space-y-6">
+                <h2 class="text-3xl md:text-4xl font-bold uppercase leading-tight">
+                    Моя особиста трансформація — це <span class="text-brand-500">фундамент</span>
+                </h2>
+                <div class="space-y-4 text-zinc-300 text-lg">
+                    <p>Цю програму я не придумав з теорії.</p>
+                    <p>Вона зібрана з мого реального досвіду трансформації довжиною понад 6 років — через помилки, пошуки, роботу з мисленням, тілом і внутрішнім станом.</p>
+                    <p>Я зібрав у ній інструменти і підходи, які реально працюють і допомогли мені повністю змінити себе та своє життя.</p>
+                    <p class="font-bold text-white border-l-4 border-brand-500 pl-4 py-2 bg-zinc-800/50 rounded-r-lg">
+                        Це не просто знання. Це система, яку я створив на основі власного досвіду.
+                    </p>
+                </div>
+                <button onclick="openModal()" class="mt-8 w-full md:w-auto px-8 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:-translate-y-1">
+                    ОТРИМАТИ ДОСТУП
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL POPUP -->
+    <div id="leadModal" class="fixed inset-0 z-50 hidden flex items-center justify-center px-4">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="relative bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-3xl p-8 shadow-2xl transform transition-all scale-95 opacity-0" id="modalContent">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white transition">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-white mb-2">Реєстрація на розбір</h3>
+                <p class="text-zinc-400 text-sm">Залиште свої дані, щоб закріпити місце</p>
+            </div>
+
+            <form id="leadForm" class="space-y-5">
+                <div>
+                    <label class="block text-sm font-medium text-zinc-400 mb-1">Ваше ім'я</label>
+                    <input type="text" id="name" required placeholder="Олександр" pattern="^[\D]+$" title="Ім'я не може містити цифри"
+                        class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+                    <p id="nameError" class="text-red-500 text-xs mt-1 hidden">Ім'я не повинно містити цифри</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-zinc-400 mb-1">Номер телефону</label>
+                    <input type="tel" id="phone" required
+                        class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+                    <p id="phoneError" class="text-red-500 text-xs mt-1 hidden">Невірний формат номера</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-zinc-400 mb-1">Нік у Telegram</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-zinc-500">@</span>
+                        <input type="text" id="telegram" required placeholder="username"
+                            class="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-9 pr-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+                    </div>
+                </div>
+
+                <button type="submit" id="submitBtn" class="w-full py-4 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl transition-all shadow-lg flex justify-center items-center gap-2">
+                    <span>ПІДТВЕРДИТИ</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/intlTelInput.min.js"></script>
+    <script>
+        // Init Icons
+        lucide.createIcons();
+
+        // Settings
+        const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL'; // ВСТАВ URL СКРИПТА
+        const TELEGRAM_BOT_URL = 'YOUR_BOT_LINK'; // ВСТАВ ПОСИЛАННЯ НА БОТА
+
+        // Modal Logic
+        const modal = document.getElementById('leadModal');
+        const modalContent = document.getElementById('modalContent');
+        
+        function openModal() {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+            fbq('track', 'InitiateCheckout');
+        }
+
+        function closeModal() {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 200);
+        }
+
+        // Phone Input & Validation setup
+        const phoneInputField = document.querySelector("#phone");
+        const iti = window.intlTelInput(phoneInputField, {
+            initialCountry: "auto",
+            excludeCountries: ["ru", "by"], // Виключаємо РФ та Білорусь
+            geoIpLookup: function(callback) {
+                fetch("https://get.geojs.io/v1/ip/country.json")
+                    .then(resp => resp.json())
+                    .then(data => callback(data.country))
+                    .catch(() => callback("ua"));
+            },
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/utils.js",
+        });
+
+        // UTM Parsing
+        function getUTMs() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                source: params.get('utm_source') || '',
+                medium: params.get('utm_medium') || '',
+                campaign: params.get('utm_campaign') || '',
+                content: params.get('utm_content') || '',
+                term: params.get('utm_term') || ''
+            };
+        }
+
+        // Form Submission
+        document.getElementById('leadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const nameInput = document.getElementById('name');
+            const telegramInput = document.getElementById('telegram');
+            const phoneError = document.getElementById('phoneError');
+            const nameError = document.getElementById('nameError');
+            const submitBtn = document.getElementById('submitBtn');
+
+            // Reset errors
+            phoneError.classList.add('hidden');
+            nameError.classList.add('hidden');
+            phoneInputField.classList.remove('border-red-500');
+            nameInput.classList.remove('border-red-500');
+
+            // Custom Name Validation (No numbers)
+            if (/\d/.test(nameInput.value)) {
+                nameError.classList.remove('hidden');
+                nameInput.classList.add('border-red-500');
+                return;
+            }
+
+            // Phone Validation
+            if (!iti.isValidNumber()) {
+                phoneError.classList.remove('hidden');
+                phoneInputField.classList.add('border-red-500');
+                return;
+            }
+
+            // Lock button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Завантаження...';
+            lucide.createIcons();
+
+            const utms = getUTMs();
+            const payload = {
+                date: new Date().toLocaleString("uk-UA"),
+                name: nameInput.value.trim(),
+                phone: iti.getNumber(),
+                telegram: telegramInput.value.trim(),
+                utm_source: utms.source,
+                utm_medium: utms.medium,
+                utm_campaign: utms.campaign,
+                utm_content: utms.content,
+                utm_term: utms.term
+            };
+
+            try {
+                const response = await fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    fbq('track', 'Lead');
+                    window.location.href = TELEGRAM_BOT_URL;
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                alert("Сталася помилка при відправці. Спробуйте ще раз.");
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span>ПІДТВЕРДИТИ</span><i data-lucide="arrow-right" class="w-5 h-5"></i>';
+                lucide.createIcons();
+            }
+        });
+    </script>
+</body>
+</html>
