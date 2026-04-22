@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дякуємо! | TRANSFORMER</title>
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', 'YOUR_PIXEL_ID'); // ВСТАВ СВІЙ ID ПІКСЕЛЯ
+    
+    // ВІДБИВАЄМО ПОДІЮ PURCHASE НА СТОРІНЦІ ПОДЯКИ
+    fbq('track', 'Purchase', {currency: "UAH", value: 1000.00}); 
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            500: '#ff5a00',
+                            600: '#e04f00',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f8fafc; }
+    </style>
+</head>
+<body class="antialiased flex items-center justify-center min-h-screen p-4">
+
+    <!-- Фонові ефекти -->
+    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-500 opacity-20 blur-[150px] rounded-full"></div>
+    </div>
+
+    <!-- Контент -->
+    <div class="relative z-10 w-full max-w-lg bg-zinc-900/80 backdrop-blur-md border border-zinc-800 rounded-3xl p-8 md:p-12 text-center shadow-2xl">
+        
+        <div class="flex justify-center mb-6">
+            <div class="w-20 h-20 bg-brand-500/10 rounded-full flex items-center justify-center border border-brand-500/30">
+                <i data-lucide="check-circle" class="w-10 h-10 text-brand-500"></i>
+            </div>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Супер! Заявку прийнято.</h1>
+        <p class="text-lg text-zinc-400 mb-8 leading-relaxed">
+            Ваше місце на діагностику успішно заброньовано.<br><br>
+            <span class="text-white font-medium">КРОК 2:</span> Обов'язково перейдіть у нашого Telegram-бота, щоб закріпити бронювання та отримати подальші інструкції.
+        </p>
+
+        <!-- КНОПКА В БОТА -->
+        <!-- ЗАМІНИ YOUR_BOT_LINK НА РЕАЛЬНЕ ПОСИЛАННЯ -->
+        <a href="YOUR_BOT_LINK" class="inline-flex w-full justify-center items-center gap-3 px-8 py-5 bg-[#0088cc] hover:bg-[#0077b5] text-white text-[19px] font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(0,136,204,0.4)] hover:shadow-[0_0_30px_rgba(0,136,204,0.6)] transform hover:-translate-y-1">
+            <i data-lucide="send" class="w-6 h-6"></i>
+            <span>ПЕРЕЙТИ В TELEGRAM</span>
+        </a>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
