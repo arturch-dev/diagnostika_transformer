@@ -210,8 +210,13 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
 
     const urlParams = window.location.search;
     
-    wfpForm.querySelector('[name="returnUrl"]').value = baseUrl + '/thanks.html' + urlParams;
-    wfpForm.querySelector('[name="declineUrl"]').value = baseUrl + '/failed.html' + urlParams;
+    // Vercel handling: use API endpoints for redirects to avoid HTTP 405 on POST
+    const isVercel = window.location.hostname.includes('vercel.app');
+    const thanksPath = isVercel ? '/api/thanks' : '/thanks.html';
+    const failedPath = isVercel ? '/api/failed' : '/failed.html';
+
+    wfpForm.querySelector('[name="returnUrl"]').value = baseUrl + thanksPath + urlParams;
+    wfpForm.querySelector('[name="declineUrl"]').value = baseUrl + failedPath + urlParams;
     wfpForm.querySelector('[name="serviceUrl"]').value = APP_CONFIG.API_ENDPOINT;
 
     if (window.fbq) fbq('track', 'Lead');
