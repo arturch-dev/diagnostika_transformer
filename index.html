@@ -460,16 +460,18 @@
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/intlTelInput.min.js"></script>
+    <!-- WayForPay Widget Script -->
+    <script id="widget-wfp-script" language="javascript" type="text/javascript" src="https://secure.wayforpay.com/server/pay-widget.js"></script>
     <script>
         lucide.createIcons();
 
         // Settings (ЗАМІНИТИ ТУТ GOOGLE SCRIPT URL)
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz98a0elbZJks4paCsYdlT_s2CAH1M2AeNBDmGKNCW4g4OuVljgBY3_d8zj7JDztoRL/exec'; 
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzy6MwwD8CnNNl_6LxbRUJNlevFxnTtWj2J6nuYuL8EUaPZKDE-ze9bSge11a5cgFJp/exec'; 
         
         // WayForPay Credentials
         const WFP_MERCHANT = 'www_instagram_com2361';
         const WFP_SECRET = 'a82c3621f0f5ca58a8ffefc594c842ac430080d2';
-        const WFP_PRICE = '1';
+        const WFP_PRICE = '1000';
         const WFP_PRODUCT = 'Коуч-сесія';
 
         // Modal Logic
@@ -599,59 +601,49 @@
                     fbq('track', 'Lead');
 
                     // ==========================================
-                    // ЛОГІКА ПЕРЕХОДУ НА WAYFORPAY
+                    // НОВА ЛОГІКА: ВІДЖЕТ WAYFORPAY
                     // ==========================================
                     
                     const domainName = window.location.hostname || "transformer.com";
                     const orderDate = Math.floor(Date.now() / 1000);
                     
-                    // Формування рядка для хешування (сувора послідовність за API WFP)
+                    // Формування рядка для хешування
                     const stringToSign = `${WFP_MERCHANT};${domainName};${orderRef};${orderDate};${WFP_PRICE};UAH;${WFP_PRODUCT};1;${WFP_PRICE}`;
-                    
-                    // Генерація MD5 Signature за допомогою crypto-js
                     const signature = CryptoJS.HmacMD5(stringToSign, WFP_SECRET).toString();
 
-                    // Формування посилання на сторінку подяки (динамічно)
-                    const currentUrl = window.location.href.split('?')[0];
-                    const returnUrl = currentUrl.replace('index.html', '').replace(/\/$/, '') + '/thanks.html' + window.location.search;
-
-                    // Створення прихованої форми
-                    const wfpForm = document.createElement("form");
-                    wfpForm.method = "POST";
-                    wfpForm.action = "https://secure.wayforpay.com/pay";
-                    wfpForm.style.display = "none";
-
-                    const params = {
-                        merchantAccount: WFP_MERCHANT,
-                        merchantDomainName: domainName,
-                        merchantSignature: signature,
-                        orderReference: orderRef,
-                        orderDate: orderDate,
-                        amount: WFP_PRICE,
-                        currency: "UAH",
-                        productName: WFP_PRODUCT,
-                        productPrice: WFP_PRICE,
-                        productCount: "1",
-                        clientFirstName: nameInput.value.trim(),
-                        clientPhone: iti.getNumber(),
-                        language: "UK",
-                        returnUrl: returnUrl, 
-                        serviceUrl: GOOGLE_SCRIPT_URL // Вебхук для зміни статусу
-                    };
-
-                    const arrayParams = ['productName', 'productPrice', 'productCount'];
-
-                    for (const key in params) {
-                        const input = document.createElement("input");
-                        input.type = "hidden";
-                        // Додаємо [] до параметрів товарів згідно з вимогами WFP
-                        input.name = arrayParams.includes(key) ? key + "[]" : key;
-                        input.value = params[key];
-                        wfpForm.appendChild(input);
-                    }
-
-                    document.body.appendChild(wfpForm);
-                    wfpForm.submit(); // Автоматичний перехід на оплату
+                    // Виклик віджета поверх сайту
+                    var wayforpay = new Wayforpay();
+                    wayforpay.run({
+                            merchantAccount: WFP_MERCHANT,
+                            merchantDomainName: domainName,
+                            merchantSignature: signature,
+                            orderReference: orderRef,
+                            orderDate: orderDate,
+                            amount: WFP_PRICE,
+                            currency: "UAH",
+                            productName: [WFP_PRODUCT], // Віджет вимагає масив
+                            productPrice: [WFP_PRICE],  // Віджет вимагає масив
+                            productCount: [1],          // Віджет вимагає масив
+                            clientFirstName: nameInput.value.trim(),
+                            clientPhone: iti.getNumber(),
+                            language: "UK",
+                            serviceUrl: GOOGLE_SCRIPT_URL // Вебхук для Гугл таблиці
+                        },
+                        function (response) {
+                            // ОПЛАТА УСПІШНА (on approved)
+                            // Робимо безпечний редірект засобами браузера, зберігаючи UTM
+                            window.location.href = 'thanks.html' + window.location.search;
+                        },
+                        function (response) {
+                            // ОПЛАТУ ВІДХИЛЕНО АБО ЛЮДИНА ЗАКРИЛА ВІКНО (on declined)
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = '<span>ПЕРЕЙТИ ДО ОПЛАТИ</span><i data-lucide="arrow-right" class="w-5 h-5"></i>';
+                            lucide.createIcons();
+                        },
+                        function (response) {
+                            // ПЛАТІЖ В ОБРОБЦІ (on pending)
+                        }
+                    );
 
                 } else {
                     throw new Error('Network response error');
