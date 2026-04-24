@@ -98,6 +98,15 @@
 
     <script>
         lucide.createIcons();
+
+        // Перевірка статусу транзакції від WayForPay
+        // Якщо статус не Approved - перенаправляємо на сторінку помилки
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('transactionStatus');
+        
+        if (status && status !== 'Approved') {
+            window.location.href = 'failed.html' + window.location.search;
+        }
     </script>
 </body>
 

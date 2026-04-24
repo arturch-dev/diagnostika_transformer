@@ -61,16 +61,8 @@ function handleRequest(e) {
 
   // CASE 1: New Lead from Website
   if (data.name && data.phone && !data.transactionStatus) {
-    const orderReference = 'ORD-' + new Date().getTime();
-    const orderDate = Math.floor(new Date().getTime() / 1000);
-    
-    // Check for test mode
-    let amount = CONSTANTS.AMOUNT;
-    let productName = CONSTANTS.PRODUCT_NAME;
-    if (data.testCode === '557913') {
-      amount = 1;
-      productName = '[TEST] ' + productName;
-    }
+    const orderReference = data.orderReference || ('ORD-' + new Date().getTime());
+    const amount = data.amount || CONSTANTS.AMOUNT;
     
     // Log to Google Sheet
     sheet.appendRow([
@@ -88,33 +80,9 @@ function handleRequest(e) {
       data.utm_term
     ]);
 
-    // Generate Signature for WayForPay
-    const signatureString = [
-      props.MERCHANT_ACCOUNT,
-      props.MERCHANT_DOMAIN,
-      orderReference,
-      orderDate,
-      amount,
-      CONSTANTS.CURRENCY,
-      productName,
-      1,
-      amount
-    ].join(';');
-
-    const signature = generateHmacMd5(signatureString, props.MERCHANT_SECRET_KEY);
-
     const resultData = {
       status: 'success',
-      orderReference: orderReference,
-      orderDate: orderDate,
-      merchantAccount: props.MERCHANT_ACCOUNT,
-      merchantDomainName: props.MERCHANT_DOMAIN,
-      signature: signature,
-      amount: amount,
-      currency: CONSTANTS.CURRENCY,
-      productName: [productName],
-      productCount: [1],
-      productPrice: [amount]
+      orderReference: orderReference
     };
 
     if (callback) {
