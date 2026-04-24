@@ -33,14 +33,15 @@ function doPost(e) {
 function handleRequest(e) {
   const props = PropertiesService.getScriptProperties().getProperties();
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  // Визначаємо таблицю
   const sheet = ss.getSheets().find(s => s.getSheetId() === 0) || ss.getSheets()[0];
   
+  const callback = e.parameter.callback;
+
   // 1. Ендпоінт для перевірки статусу (для thanks.html)
   if (e.parameter.action === 'checkStatus' && e.parameter.orderReference) {
     const orderRef = e.parameter.orderReference;
     const rows = sheet.getDataRange().getValues();
-    let currentStatus = 'Очікує оплати';
+    let currentStatus = 'NotFound'; // По замовчуванню - не знайдено
     
     for (let i = rows.length - 1; i >= 0; i--) {
       if (rows[i][6] == orderRef) { // Column G is orderReference
@@ -55,10 +56,8 @@ function handleRequest(e) {
       isSuccess: currentStatus === 'Оплачено'
     };
     
-    const callback = e.parameter.callback;
     if (callback) {
-      const output = callback + '(' + JSON.stringify(result) + ')';
-      return ContentService.createTextOutput(output).setMimeType(ContentService.MimeType.JAVASCRIPT);
+      return ContentService.createTextOutput(callback + '(' + JSON.stringify(result) + ')').setMimeType(ContentService.MimeType.JAVASCRIPT);
     }
     return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(ContentService.MimeType.JSON);
   }
@@ -74,33 +73,30 @@ function handleRequest(e) {
     data = e.parameter;
   }
 
-  const callback = e.parameter.callback;
-
-  // CASE 1: New Lead from Website
+  // CASE 1: New Lead from Website (Handles both POST and GET/JSONP)
   if (data.name && data.phone && !data.transactionStatus) {
     const orderReference = data.orderReference || ('ORD-' + new Date().getTime());
     const amount = data.amount || CONSTANTS.AMOUNT;
     
     sheet.appendRow([
-      data.date,
+      data.date || new Date().toLocaleString("uk-UA"),
       data.name,
       data.phone,
-      data.telegram,
+      data.telegram || '',
       amount,
       'Очікує оплати',
       orderReference,
-      data.utm_source,
-      data.utm_medium,
-      data.utm_campaign,
-      data.utm_content,
-      data.utm_term
+      data.utm_source || '',
+      data.utm_medium || '',
+      data.utm_campaign || '',
+      data.utm_content || '',
+      data.utm_term || ''
     ]);
 
     const resultData = { status: 'success', orderReference: orderReference };
 
     if (callback) {
-      const output = callback + '(' + JSON.stringify(resultData) + ')';
-      return ContentService.createTextOutput(output).setMimeType(ContentService.MimeType.JAVASCRIPT);
+      return ContentService.createTextOutput(callback + '(' + JSON.stringify(resultData) + ')').setMimeType(ContentService.MimeType.JAVASCRIPT);
     }
     return ContentService.createTextOutput(JSON.stringify(resultData)).setMimeType(ContentService.MimeType.TEXT);
   }

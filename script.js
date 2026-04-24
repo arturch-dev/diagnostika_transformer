@@ -124,7 +124,7 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
     const utms = getUTMs();
     
     // 1. Prepare Order Data
-    const orderReference = 'ORD-' + Date.now();
+    const orderReference = 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
     const orderDate = Math.floor(Date.now() / 1000);
     let amount = 1000;
     let productName = 'Коуч-сесія TRANSFORMER';
@@ -172,56 +172,71 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
     
     const signature = CryptoJS.HmacMD5(signatureString, merchantSecretKey).toString();
 
-    // 3. Send Lead to Google Sheets (Non-blocking, ignore CORS errors)
-    try {
-        const params = new URLSearchParams();
-        Object.keys(payload).forEach(key => params.append(key, payload[key]));
+    // 3. Send Lead to Google Sheets via JSONP (Most reliable for Mobile/Safari)
+    return new Promise((resolve) => {
+        const script = document.createElement('script');
+        const callbackName = 'leadCallback_' + Date.now();
         
-        // Use no-cors to avoid AdBlock/CORS blocking the whole script
-        fetch(APP_CONFIG.API_ENDPOINT, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: params
-        }).catch(err => console.log('GAS fetch error (ignored):', err));
-    } catch (e) {
-        console.log('GAS submission error (ignored)', e);
-    }
+        const queryParams = new URLSearchParams();
+        Object.keys(payload).forEach(key => queryParams.append(key, payload[key]));
+        queryParams.append('callback', callbackName);
 
-    // 4. Submit to WayForPay Form Directly
-    const wfpForm = document.getElementById('wfpForm');
-    wfpForm.querySelector('[name="merchantAccount"]').value = merchantAccount;
-    wfpForm.querySelector('[name="merchantDomainName"]').value = merchantDomainName;
-    wfpForm.querySelector('[name="orderReference"]').value = orderReference;
-    wfpForm.querySelector('[name="orderDate"]').value = orderDate;
-    wfpForm.querySelector('[name="amount"]').value = amount;
-    wfpForm.querySelector('[name="currency"]').value = currency;
-    wfpForm.querySelector('[name="productName[]"]').value = productName;
-    wfpForm.querySelector('[name="productCount[]"]').value = productCount;
-    wfpForm.querySelector('[name="productPrice[]"]').value = productPrice;
-    wfpForm.querySelector('[name="merchantSignature"]').value = signature;
+        window[callbackName] = function(response) {
+            console.log('Lead logged via JSONP:', response);
+            delete window[callbackName];
+            document.body.removeChild(script);
+            resolve();
+        };
 
-    // 5. Set Redirect URLs
-    // We use returnMethod: 'GET' to ensure WayForPay redirects back using a GET request.
-    // This avoids HTTP 405 errors on Vercel and security blocks on Localhost.
-    let baseUrl = window.location.origin + window.location.pathname;
-    if (baseUrl.endsWith('.html')) {
-        baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/'));
-    } else if (baseUrl.endsWith('/')) {
-        baseUrl = baseUrl.slice(0, -1);
-    }
+        // Fallback timeout for JSONP
+        setTimeout(() => {
+            if (window[callbackName]) {
+                console.log('JSONP lead timeout - proceeding anyway');
+                delete window[callbackName];
+                if (script.parentNode) document.body.removeChild(script);
+                resolve();
+            }
+        }, 2500);
 
-    const urlParams = window.location.search;
-    
-    wfpForm.querySelector('[name="returnUrl"]').value = baseUrl + '/thanks.html' + urlParams;
-    wfpForm.querySelector('[name="declineUrl"]').value = baseUrl + '/failed.html' + urlParams;
-    wfpForm.querySelector('[name="serviceUrl"]').value = APP_CONFIG.API_ENDPOINT;
-    wfpForm.querySelector('[name="returnMethod"]').value = 'GET';
+        script.src = APP_CONFIG.API_ENDPOINT + '?' + queryParams.toString();
+        document.body.appendChild(script);
+    }).then(() => {
+        // 4. Submit to WayForPay Form Directly
+        const wfpForm = document.getElementById('wfpForm');
+        wfpForm.querySelector('[name="merchantAccount"]').value = merchantAccount;
+        wfpForm.querySelector('[name="merchantDomainName"]').value = merchantDomainName;
+        wfpForm.querySelector('[name="orderReference"]').value = orderReference;
+        wfpForm.querySelector('[name="orderDate"]').value = orderDate;
+        wfpForm.querySelector('[name="amount"]').value = amount.toString();
+        wfpForm.querySelector('[name="currency"]').value = currency;
+        wfpForm.querySelector('[name="productName[]"]').value = productName;
+        wfpForm.querySelector('[name="productCount[]"]').value = productCount;
+        wfpForm.querySelector('[name="productPrice[]"]').value = productPrice;
+        wfpForm.querySelector('[name="merchantSignature"]').value = signature;
 
-    if (window.fbq) fbq('track', 'Lead');
-    
-    // Save orderReference so thanks.html can check its actual status
-    localStorage.setItem('lastOrderRef', orderReference);
-    
-    console.log('Redirecting to WayForPay...');
-    wfpForm.submit();
+        // 5. Set Redirect URLs
+        let baseUrl = window.location.origin + window.location.pathname;
+        if (baseUrl.endsWith('.html')) {
+            baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/'));
+        } else if (baseUrl.endsWith('/')) {
+            baseUrl = baseUrl.slice(0, -1);
+        }
+
+        const urlParams = window.location.search;
+        
+        wfpForm.querySelector('[name="returnUrl"]').value = baseUrl + '/thanks.html' + urlParams;
+        wfpForm.querySelector('[name="declineUrl"]').value = baseUrl + '/failed.html' + urlParams;
+        wfpForm.querySelector('[name="serviceUrl"]').value = APP_CONFIG.API_ENDPOINT;
+        wfpForm.querySelector('[name="returnMethod"]').value = 'GET';
+
+        if (window.fbq) fbq('track', 'Lead');
+        
+        // Save orderReference so thanks.html can check its actual status
+        localStorage.setItem('lastOrderRef', orderReference);
+        
+        console.log('Redirecting to WayForPay...');
+        setTimeout(() => {
+            wfpForm.submit();
+        }, 300);
+    });
 });
