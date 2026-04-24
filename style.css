@@ -1,0 +1,48 @@
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #09090b;
+    color: #f8fafc;
+}
+
+.iti {
+    width: 100%;
+}
+
+.iti__country-list {
+    background-color: #18181b;
+    color: white;
+    border: 1px solid #3f3f46;
+}
+
+.iti__country.iti__highlight {
+    background-color: #27272a;
+}
+
+.iti__divider {
+    border-bottom: 1px solid #3f3f46;
+}
+
+.glass-panel {
+    background: rgba(24, 24, 27, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Hide standard triangle in FAQ */
+details>summary {
+    list-style: none;
+}
+
+details>summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Animations */
+@keyframes pulse-soft {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.animate-pulse-soft {
+    animation: pulse-soft 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
