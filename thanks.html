@@ -15,13 +15,13 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '937221912419607'); // ВСТАВ СВІЙ ID ПІКСЕЛЯ
+    fbq('init', '937221912419607'); 
     
     // ВІДБИВАЄМО ПОДІЮ PURCHASE НА СТОРІНЦІ ПОДЯКИ
-    fbq('track', 'Purchase', {currency: "UAH", value: 1000.00}); 
+    fbq('track', 'Purchase', {currency: "UAH", value: 1.00}); // Поміняй на 1000 коли закінчиш тести
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1"
+    src="https://www.facebook.com/tr?id=937221912419607&ev=PageView&noscript=1"
     /></noscript>
     <!-- End Meta Pixel Code -->
 
@@ -68,14 +68,12 @@
             </div>
         </div>
 
-        <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Супер! Заявку прийнято.</h1>
+        <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Супер! Оплату прийнято.</h1>
         <p class="text-lg text-zinc-400 mb-8 leading-relaxed">
             Місце на коуч-сесію успішно заброньовано.<br><br>
             <span class="text-white font-medium">КРОК 2:</span> Я зв'яжусь з тобою найближчим часом, а поки можеш підписатися на мій інстаграм, щоб не втратити наш зв'язок.
         </p>
 
-        <!-- КНОПКА В БОТА -->
-        <!-- ЗАМІНИ YOUR_BOT_LINK НА РЕАЛЬНЕ ПОСИЛАННЯ -->
         <a href="https://www.instagram.com/vova.win" class="inline-flex w-full justify-center items-center gap-3 px-8 py-5 bg-[#0088cc] hover:bg-[#0077b5] text-white text-[19px] font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(0,136,204,0.4)] hover:shadow-[0_0_30px_rgba(0,136,204,0.6)] transform hover:-translate-y-1">
             <i data-lucide="send" class="w-6 h-6"></i>
             <span>ПЕРЕЙТИ В ІНСТАГРАМ</span>
@@ -84,6 +82,31 @@
 
     <script>
         lucide.createIcons();
+
+        // Логіка оновлення оплати в Google Таблиці
+        document.addEventListener("DOMContentLoaded", () => {
+            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZULRVimNoWWZ5LGPn1TaPk3COwCpOuENjNa5TM0jjZup91WoHoK25Q_8GFRrXyOzQ/exec'; 
+            const WFP_AMOUNT = "1"; // Поміняй на 1000 коли закінчиш тести
+
+            // Парсимо URL, шукаємо rowId
+            const params = new URLSearchParams(window.location.search);
+            const rowId = params.get('rowId');
+
+            // Якщо є rowId (значить прийшли після успішної оплати)
+            if (rowId) {
+                const payload = {
+                    action: "update_payment",
+                    rowId: parseInt(rowId),
+                    price: WFP_AMOUNT
+                };
+
+                // Відправляємо запит до таблиці, щоб проставити суму
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: JSON.stringify(payload)
+                }).catch(e => console.error("Error updating sheet:", e));
+            }
+        });
     </script>
 </body>
 </html>
