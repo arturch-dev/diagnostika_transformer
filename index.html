@@ -27,30 +27,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            500: '#ff5a00',
-                            600: '#e04f00',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
+            theme: { extend: { colors: { brand: { 500: '#ff5a00', 600: '#e04f00' } }, fontFamily: { sans: ['Inter', 'sans-serif'] } } }
         }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-
-    <!-- Intl-Tel-Input CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/css/intlTelInput.css" />
-    
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- WayForPay Widget & Crypto-JS для генерації підпису -->
     <script id="widget-wfp-script" language="javascript" type="text/javascript" src="https://secure.wayforpay.com/server/pay-widget.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
@@ -60,13 +42,7 @@
         .iti__country-list { background-color: #18181b; color: white; border: 1px solid #3f3f46; }
         .iti__country.iti__highlight { background-color: #27272a; }
         .iti__divider { border-bottom: 1px solid #3f3f46; }
-        
-        .glass-panel {
-            background: rgba(24, 24, 27, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
+        .glass-panel { background: rgba(24, 24, 27, 0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
     </style>
@@ -84,13 +60,10 @@
         <div class="relative z-10 w-full max-w-6xl mx-auto flex flex-col h-full flex-grow px-4 pb-12 pt-6">
             <div class="flex justify-center md:justify-start">
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-500/50 bg-black/40 backdrop-blur-md text-brand-500 text-sm font-semibold uppercase tracking-wider shadow-lg">
-                    <i data-lucide="zap" class="w-4 h-4"></i>
-                    Трансформація починається тут
+                    <i data-lucide="zap" class="w-4 h-4"></i> Трансформація починається тут
                 </div>
             </div>
-
             <div class="flex-grow min-h-[30vh] md:min-h-[10vh]"></div>
-
             <div class="w-full md:w-[60%] space-y-5 text-center md:text-left mt-auto">
                 <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-tight text-white drop-shadow-xl">
                     60 хвилинна <span class="text-brand-500">коуч сесія</span>
@@ -107,7 +80,6 @@
                         <span class="text-4xl font-extrabold text-brand-500 drop-shadow-lg">1 грн</span>
                         <span class="text-xl font-medium text-zinc-400 line-through mb-1">4300 грн</span>
                     </div>
-                    
                     <div class="flex items-center gap-2 px-4 py-2 bg-zinc-900/80 border border-zinc-700 rounded-lg backdrop-blur-sm inline-flex">
                         <i data-lucide="timer" class="w-5 h-5 text-brand-500 animate-pulse"></i>
                         <span class="text-sm text-zinc-300">Знижка згорить через:</span>
@@ -128,51 +100,25 @@
     <section class="py-16 md:py-24 bg-zinc-900 px-4">
         <div class="max-w-4xl mx-auto">
             <h2 class="text-3xl md:text-5xl font-bold mb-10 text-center">Що буде на коуч-сесії</h2>
-            
             <div class="glass-panel p-6 md:p-12 rounded-3xl">
                 <p class="text-xl mb-6 font-medium text-center md:text-left">За 60 хвилин ми детально розберемо твою ситуацію по ключовим сферам життя:</p>
                 <ul class="space-y-4 mb-8">
-                    <li class="flex items-start gap-4">
-                        <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i>
-                        <span class="text-lg text-zinc-300">заглибимось, де ти зараз знаходишся насправді</span>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i>
-                        <span class="text-lg text-zinc-300">зрозуміємо, що саме гальмує твій результат</span>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i>
-                        <span class="text-lg text-zinc-300">побачимо, де ти втрачаєш енергію і фокус</span>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i>
-                        <span class="text-lg text-zinc-300">побудуємо план твого росту</span>
-                    </li>
+                    <li class="flex items-start gap-4"><i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i><span class="text-lg text-zinc-300">заглибимось, де ти зараз знаходишся насправді</span></li>
+                    <li class="flex items-start gap-4"><i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i><span class="text-lg text-zinc-300">зрозуміємо, що саме гальмує твій результат</span></li>
+                    <li class="flex items-start gap-4"><i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i><span class="text-lg text-zinc-300">побачимо, де ти втрачаєш енергію і фокус</span></li>
+                    <li class="flex items-start gap-4"><i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i><span class="text-lg text-zinc-300">побудуємо план твого росту</span></li>
                 </ul>
-
                 <div class="border-t border-zinc-800 pt-8">
                     <h3 class="text-2xl font-bold mb-6 text-brand-500 text-center md:text-left">Що ми зробимо за 60 хвилин:</h3>
                     <div class="grid md:grid-cols-3 gap-6">
-                        <div class="bg-zinc-950/50 p-6 rounded-2xl border border-zinc-800">
-                            <i data-lucide="map" class="w-8 h-8 text-white mb-4"></i>
-                            <p class="text-zinc-300">Перші 30 хвилин: глибоко розбираємо твою теперішню ситуацію</p>
-                        </div>
-                        <div class="bg-zinc-950/50 p-6 rounded-2xl border border-zinc-800">
-                            <i data-lucide="trending-up" class="w-8 h-8 text-white mb-4"></i>
-                            <p class="text-zinc-300">30-45 хвилини:<br>знаходимо точки твого росту</p>
-                        </div>
-                        <div class="bg-zinc-950/50 p-6 rounded-2xl border border-zinc-800">
-                            <i data-lucide="key" class="w-8 h-8 text-white mb-4"></i>
-                            <p class="text-zinc-300">45-60 хвилини: прописуємо під тебе конкретний план дій</p>
-                        </div>
+                        <div class="bg-zinc-950/50 p-6 rounded-2xl border border-zinc-800"><i data-lucide="map" class="w-8 h-8 text-white mb-4"></i><p class="text-zinc-300">Перші 30 хвилин: глибоко розбираємо твою теперішню ситуацію</p></div>
+                        <div class="bg-zinc-950/50 p-6 rounded-2xl border border-zinc-800"><i data-lucide="trending-up" class="w-8 h-8 text-white mb-4"></i><p class="text-zinc-300">30-45 хвилини:<br>знаходимо точки твого росту</p></div>
+                        <div class="bg-zinc-950/50 p-6 rounded-2xl border border-zinc-800"><i data-lucide="key" class="w-8 h-8 text-white mb-4"></i><p class="text-zinc-300">45-60 хвилини: прописуємо під тебе конкретний план дій</p></div>
                     </div>
                 </div>
             </div>
-            
             <div class="mt-10 flex justify-center">
-                <button onclick="openModal()" class="w-full md:w-auto px-10 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:-translate-y-1">
-                    ОТРИМАТИ РОЗБІР
-                </button>
+                <button onclick="openModal()" class="w-full md:w-auto px-10 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:-translate-y-1">ОТРИМАТ РОЗБІР</button>
             </div>
         </div>
     </section>
@@ -182,33 +128,13 @@
         <div class="absolute left-0 bottom-0 w-96 h-96 rounded-full bg-brand-500 opacity-10 blur-[120px] pointer-events-none"></div>
         <div class="max-w-5xl mx-auto">
             <h2 class="text-3xl md:text-5xl font-bold mb-10 text-center">За 60 хвилин на сесії в тебе з'явиться:</h2>
-            
             <div class="grid md:grid-cols-2 gap-4 md:gap-6 mb-12">
-                <div class="glass-panel p-6 md:p-8 rounded-2xl">
-                    <i data-lucide="brain" class="w-10 h-10 text-brand-500 mb-4"></i>
-                    <h4 class="text-xl font-bold mb-2">Чітке розуміння</h4>
-                    <p class="text-zinc-400">що з тобою відбувається і чому</p>
-                </div>
-                <div class="glass-panel p-6 md:p-8 rounded-2xl">
-                    <i data-lucide="compass" class="w-10 h-10 text-brand-500 mb-4"></i>
-                    <h4 class="text-xl font-bold mb-2">Абсолютна ясність</h4>
-                    <p class="text-zinc-400">куди рухатись далі</p>
-                </div>
-                <div class="glass-panel p-6 md:p-8 rounded-2xl">
-                    <i data-lucide="list-todo" class="w-10 h-10 text-brand-500 mb-4"></i>
-                    <h4 class="text-xl font-bold mb-2">Конкретний план дій</h4>
-                    <p class="text-zinc-400">що робити щоб вирости вже за перші 2 місяці</p>
-                </div>
-                <div class="glass-panel p-6 md:p-8 rounded-2xl">
-                    <i data-lucide="target" class="w-10 h-10 text-brand-500 mb-4"></i>
-                    <h4 class="text-xl font-bold mb-2">Запис нашого зуму</h4>
-                    <p class="text-zinc-400">щоб ти міг в будь-який момент переслухати ключові сенси та висновки</p>
-                </div>
+                <div class="glass-panel p-6 md:p-8 rounded-2xl"><i data-lucide="brain" class="w-10 h-10 text-brand-500 mb-4"></i><h4 class="text-xl font-bold mb-2">Чітке розуміння</h4><p class="text-zinc-400">що з тобою відбувається і чому</p></div>
+                <div class="glass-panel p-6 md:p-8 rounded-2xl"><i data-lucide="compass" class="w-10 h-10 text-brand-500 mb-4"></i><h4 class="text-xl font-bold mb-2">Абсолютна ясність</h4><p class="text-zinc-400">куди рухатись далі</p></div>
+                <div class="glass-panel p-6 md:p-8 rounded-2xl"><i data-lucide="list-todo" class="w-10 h-10 text-brand-500 mb-4"></i><h4 class="text-xl font-bold mb-2">Конкретний план дій</h4><p class="text-zinc-400">що робити щоб вирости вже за перші 2 місяці</p></div>
+                <div class="glass-panel p-6 md:p-8 rounded-2xl"><i data-lucide="target" class="w-10 h-10 text-brand-500 mb-4"></i><h4 class="text-xl font-bold mb-2">Запис нашого зуму</h4><p class="text-zinc-400">щоб ти міг в будь-який момент переслухати ключові сенси та висновки</p></div>
             </div>
-
-            <div class="text-center bg-brand-500 text-white p-6 md:p-8 rounded-3xl font-bold text-xl md:text-2xl shadow-[0_0_30px_rgba(255,90,0,0.3)]">
-                Це точка, з якої в багатьох починається реальний рух і результат
-            </div>
+            <div class="text-center bg-brand-500 text-white p-6 md:p-8 rounded-3xl font-bold text-xl md:text-2xl shadow-[0_0_30px_rgba(255,90,0,0.3)]">Це точка, з якої в багатьох починається реальний рух і результат</div>
         </div>
     </section>
 
@@ -219,56 +145,28 @@
                 <img src="author.PNG" alt="Автор" class="rounded-2xl object-cover w-full shadow-xl border border-zinc-800" loading="lazy">
             </div>
             <div class="flex-1 space-y-6">
-                <h2 class="text-3xl md:text-4xl font-bold uppercase leading-tight text-center md:text-left">
-                    Коуч для підприємців <span class="text-brand-500">Володимир Гаврилюк</span>
-                </h2>
-                
+                <h2 class="text-3xl md:text-4xl font-bold uppercase leading-tight text-center md:text-left">Коуч для підприємців <span class="text-brand-500">Володимир Гаврилюк</span></h2>
                 <div class="space-y-5 text-zinc-300 text-lg">
-                    <div class="flex items-start gap-4">
-                        <div class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30">
-                            <div class="w-2 h-2 rounded-full bg-brand-500 shadow-[0_0_8px_rgba(255,90,0,0.8)]"></div>
-                        </div>
-                        <p>Автор трансформаційної програми Transformer.</p>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30">
-                            <div class="w-2 h-2 rounded-full bg-brand-500 shadow-[0_0_8px_rgba(255,90,0,0.8)]"></div>
-                        </div>
-                        <p>Пройшов шлях від кухаря в Словаччині зі стелею €1000 — до сертифікованого коуча ICF.</p>
-                    </div>
-                    <div class="flex items-start gap-4">
-                        <div class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30">
-                            <div class="w-2 h-2 rounded-full bg-brand-500 shadow-[0_0_8px_rgba(255,90,0,0.8)]"></div>
-                        </div>
-                        <p>На сесії ділюсь інструментами і підходами, які реально працюють і допомогли мені повністю змінити себе та своє життя.</p>
-                    </div>
-
-                    <p class="font-bold text-white border-l-4 border-brand-500 pl-4 py-3 bg-zinc-800/50 rounded-r-lg mt-6 shadow-sm">
-                        Персональна коуч-сесія - твоя можливість почати все з чистого листа.
-                    </p>
+                    <div class="flex items-start gap-4"><div class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30"><div class="w-2 h-2 rounded-full bg-brand-500 shadow-[0_0_8px_rgba(255,90,0,0.8)]"></div></div><p>Автор трансформаційної програми Transformer.</p></div>
+                    <div class="flex items-start gap-4"><div class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30"><div class="w-2 h-2 rounded-full bg-brand-500 shadow-[0_0_8px_rgba(255,90,0,0.8)]"></div></div><p>Пройшов шлях від кухаря в Словаччині зі стелею €1000 — до сертифікованого коуча ICF.</p></div>
+                    <div class="flex items-start gap-4"><div class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30"><div class="w-2 h-2 rounded-full bg-brand-500 shadow-[0_0_8px_rgba(255,90,0,0.8)]"></div></div><p>На сесії ділюсь інструментами і підходами, які реально працюють і допомогли мені повністю змінити себе та своє життя.</p></div>
+                    <p class="font-bold text-white border-l-4 border-brand-500 pl-4 py-3 bg-zinc-800/50 rounded-r-lg mt-6 shadow-sm">Персональна коуч-сесія - твоя можливість почати все з чистого листа.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- БЛОК 5: НОВИЙ ДО/ПІСЛЯ -->
+    <!-- БЛОК 5: ДО/ПІСЛЯ -->
     <section class="py-16 md:py-24 bg-[#09090b] px-4 border-t border-zinc-800">
         <div class="max-w-6xl mx-auto">
             <h2 class="text-4xl md:text-6xl font-extrabold mb-16 text-center text-white uppercase tracking-tight">Трансформація</h2>
-            
             <div class="flex flex-col md:flex-row items-stretch justify-between gap-8 md:gap-4 relative">
-                
-                <!-- Ліве Фото (До) -->
                 <div class="w-full md:w-[30%]">
                     <div class="w-full h-[400px] md:h-[550px] rounded-2xl overflow-hidden shadow-lg border border-zinc-800">
                         <img src="before1.jpg" alt="До" class="w-full h-full object-cover">
                     </div>
                 </div>
-
-                <!-- Центральний Текст -->
                 <div class="w-full md:w-[40%] flex flex-col justify-center space-y-12 px-2 py-4">
-                    
-                    <!-- Точка А -->
                     <div class="relative">
                         <div class="inline-block bg-white text-black px-4 py-1.5 font-bold rounded-md mb-5 text-sm uppercase tracking-wide">Точка А</div>
                         <ul class="text-zinc-400 space-y-3 text-lg md:text-xl font-medium">
@@ -278,11 +176,7 @@
                             <li class="flex gap-3"><span class="text-zinc-600">/</span> Постійний внутрішній хаос</li>
                         </ul>
                     </div>
-
-                    <!-- Декоративна лінія -->
                     <div class="w-12 h-1 bg-zinc-800 rounded-full"></div>
-
-                    <!-- Точка Б -->
                     <div class="relative">
                         <div class="inline-block bg-white text-black px-4 py-1.5 font-bold rounded-md mb-5 text-sm uppercase tracking-wide">Точка Б</div>
                         <ul class="text-white space-y-3 text-lg md:text-xl font-medium">
@@ -292,44 +186,28 @@
                             <li class="flex gap-3"><span class="text-brand-500">/</span> Довгострокове бачення і місія</li>
                         </ul>
                     </div>
-
                 </div>
-
-                <!-- Праве Фото (Після) -->
                 <div class="w-full md:w-[30%]">
                     <div class="w-full h-[400px] md:h-[550px] rounded-2xl overflow-hidden shadow-lg border border-brand-500/30">
                         <img src="after1.jpg" alt="Після" class="w-full h-full object-cover">
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
     <!-- БЛОК 6: ПЕРЕДОСТАННІЙ (ЦІННІСТЬ) -->
     <section class="py-16 md:py-24 bg-brand-500 px-4 relative overflow-hidden">
-        <!-- Декоративні елементи -->
         <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 blur-[80px] rounded-full"></div>
         <div class="absolute bottom-0 left-0 w-64 h-64 bg-black opacity-10 blur-[80px] rounded-full"></div>
-        
         <div class="max-w-4xl mx-auto text-center relative z-10">
-            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight drop-shadow-md">
-                Кожен місяць без системи = <br class="hidden md:block">втрачені гроші і можливості.
-            </h2>
-            <p class="text-xl md:text-2xl text-white/90 font-medium mb-10">
-                Поки ти бігаєш всюди і шукаєш рішення — ти недозаробляєш.
-            </p>
-            
+            <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight drop-shadow-md">Кожен місяць без системи = <br class="hidden md:block">втрачені гроші і можливості.</h2>
+            <p class="text-xl md:text-2xl text-white/90 font-medium mb-10">Поки ти бігаєш всюди і шукаєш рішення — ти недозаробляєш.</p>
             <div class="bg-black/20 p-8 md:p-10 rounded-3xl backdrop-blur-md border border-white/20 shadow-2xl">
-                <p class="text-lg md:text-xl text-white font-medium leading-relaxed">
-                    За 60 хвилин на сесії ми глибинно зануримося в твою ситуацію, точково знайдемо проблеми, які зупиняють твій ріст та складемо план вирішення цих проблем.
-                </p>
+                <p class="text-lg md:text-xl text-white font-medium leading-relaxed">За 60 хвилин на сесії ми глибинно зануримося в твою ситуацію, точково знайдемо проблеми, які зупиняють твій ріст та складемо план вирішення цих проблем.</p>
             </div>
-            
             <div class="mt-12 flex justify-center">
-                <button onclick="openModal()" class="w-full md:w-auto px-12 py-5 bg-zinc-950 hover:bg-black text-white text-[19px] font-bold rounded-xl transition-all shadow-[0_0_30px_rgba(0,0,0,0.5)] transform hover:-translate-y-1">
-                    ОТРИМАТИ РОЗБІР
-                </button>
+                <button onclick="openModal()" class="w-full md:w-auto px-12 py-5 bg-zinc-950 hover:bg-black text-white text-[19px] font-bold rounded-xl transition-all shadow-[0_0_30px_rgba(0,0,0,0.5)] transform hover:-translate-y-1">ОТРИМАТИ РОЗБІР</button>
             </div>
         </div>
     </section>
@@ -338,72 +216,32 @@
     <section class="py-16 md:py-24 bg-[#09090b] px-4">
         <div class="max-w-3xl mx-auto">
             <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center text-white">Часті питання</h2>
-            
             <div class="space-y-4">
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
-                        <span class="pr-6">1. Це черговий коучинг “про поговорити”?</span>
-                        <span class="transition group-open:rotate-180 shrink-0 text-brand-500">
-                            <i data-lucide="chevron-down" class="w-6 h-6"></i>
-                        </span>
-                    </summary>
-                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
-                        Ні. Тут немає мотиваційних розмов і “подумай інакше”. Ми розбираємо твою ситуацію по факту: де ти втрачаєш контроль, що не працює і що конкретно змінити. Ти отримуєш чіткий план дій, а не роздуми.
-                    </div>
+                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none"><span class="pr-6">1. Це черговий коучинг “про поговорити”?</span><span class="transition group-open:rotate-180 shrink-0 text-brand-500"><i data-lucide="chevron-down" class="w-6 h-6"></i></span></summary>
+                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">Ні. Тут немає мотиваційних розмов і “подумай інакше”. Ми розбираємо твою ситуацію по факту: де ти втрачаєш контроль, що не працює і що конкретно змінити. Ти отримуєш чіткий план дій, а не роздуми.</div>
                 </details>
-
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
-                        <span class="pr-6">2. У мене вже був досвід курсів/коучів і це не дало результату. Чим це відрізняється?</span>
-                        <span class="transition group-open:rotate-180 shrink-0 text-brand-500">
-                            <i data-lucide="chevron-down" class="w-6 h-6"></i>
-                        </span>
-                    </summary>
-                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
-                        Більшість програм дають інформацію, але не дають системи і контролю. Тут фокус не на теорії, а на твоїй реальній ситуації: що саме у тебе не працює і як це виправити. Без загальних порад.
-                    </div>
+                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none"><span class="pr-6">2. У мене вже був досвід курсів/коучів і це не дало результату. Чим це відрізняється?</span><span class="transition group-open:rotate-180 shrink-0 text-brand-500"><i data-lucide="chevron-down" class="w-6 h-6"></i></span></summary>
+                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">Більшість програм дають інформацію, але не дають системи і контролю. Тут фокус не на теорії, а на твоїй реальній ситуації: що саме у тебе не працює і як це виправити. Без загальних порад.</div>
                 </details>
-
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
-                        <span class="pr-6">3. А якщо у мене зараз повний хаос і немає навіть розуміння, що не так?</span>
-                        <span class="transition group-open:rotate-180 shrink-0 text-brand-500">
-                            <i data-lucide="chevron-down" class="w-6 h-6"></i>
-                        </span>
-                    </summary>
-                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
-                        Це нормальна точка старту. Саме для цього і потрібна сесія — щоб розкласти все по поличках, знайти ключові проблеми і визначити перші кроки, які дадуть результат.
-                    </div>
+                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none"><span class="pr-6">3. А якщо у мене зараз повний хаос і немає навіть розуміння, що не так?</span><span class="transition group-open:rotate-180 shrink-0 text-brand-500"><i data-lucide="chevron-down" class="w-6 h-6"></i></span></summary>
+                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">Це нормальна точка старту. Саме для цього і потрібна сесія — щоб розкласти все по поличках, знайти ключові проблеми і визначити перші кроки, які дадуть результат.</div>
                 </details>
-
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
-                        <span class="pr-6">4. Скільки часу це займає і як проходить?</span>
-                        <span class="transition group-open:rotate-180 shrink-0 text-brand-500">
-                            <i data-lucide="chevron-down" class="w-6 h-6"></i>
-                        </span>
-                    </summary>
-                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
-                        Сесія триває 60 хвилин у форматі онлайн-зустрічі. Це жива робота один на один, де ми розбираємо твою ситуацію і формуємо план дій.
-                    </div>
+                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none"><span class="pr-6">4. Скільки часу це займає і як проходить?</span><span class="transition group-open:rotate-180 shrink-0 text-brand-500"><i data-lucide="chevron-down" class="w-6 h-6"></i></span></summary>
+                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">Сесія триває 60 хвилин у форматі онлайн-зустрічі. Це жива робота один на один, де ми розбираємо твою ситуацію і формуємо план дій.</div>
                 </details>
-
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
-                        <span class="pr-6">5. Що буде після сесії? Чи вистачить одного разу?</span>
-                        <span class="transition group-open:rotate-180 shrink-0 text-brand-500">
-                            <i data-lucide="chevron-down" class="w-6 h-6"></i>
-                        </span>
-                    </summary>
-                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
-                        У тебе буде чітке розуміння, що робити далі і з чого почати. Для когось цього достатньо, щоб зрушити самостійно. Якщо потрібен глибший результат — можна продовжити роботу і впровадити систему під ключ.
-                    </div>
+                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none"><span class="pr-6">5. Що буде після сесії? Чи вистачить одного разу?</span><span class="transition group-open:rotate-180 shrink-0 text-brand-500"><i data-lucide="chevron-down" class="w-6 h-6"></i></span></summary>
+                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">У тебе буде чітке розуміння, що робити далі і з чого почати. Для когось цього достатньо, щоб зрушити самостійно. Якщо потрібен глибший результат — можна продовжити роботу і впровадити систему під ключ.</div>
                 </details>
             </div>
         </div>
     </section>
 
-    <!-- FLOATING BUTTON (Тільки для мобільних) -->
+    <!-- FLOATING BUTTON -->
     <div class="fixed bottom-4 left-4 right-4 z-40 md:hidden pointer-events-none flex justify-center">
         <button onclick="openModal()" class="w-full max-w-sm pointer-events-auto px-6 py-4 bg-brand-500 text-white text-[17px] font-bold rounded-2xl shadow-[0_10px_30px_rgba(255,90,0,0.6)] border border-brand-400/50 flex justify-center items-center gap-2 active:scale-95 transition-transform">
             <span>ХОЧУ НА РОЗБІР</span>
@@ -415,9 +253,7 @@
     <div id="leadModal" class="fixed inset-0 z-50 hidden flex items-center justify-center px-4">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
         <div class="relative bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-3xl p-8 shadow-2xl transform transition-all scale-95 opacity-0" id="modalContent">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white transition">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white transition"><i data-lucide="x" class="w-6 h-6"></i></button>
             <div class="text-center mb-8">
                 <h3 class="text-2xl font-bold text-white mb-2">Реєстрація на розбір</h3>
                 <p class="text-zinc-400 text-sm">Залиште свої дані, щоб перейти до оплати</p>
@@ -425,48 +261,41 @@
             <form id="leadForm" class="space-y-5">
                 <div>
                     <label class="block text-sm font-medium text-zinc-400 mb-1">Ваше ім'я</label>
-                    <input type="text" id="name" required placeholder="Олександр" pattern="^[\D]+$" title="Ім'я не може містити цифри"
-                        class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+                    <input type="text" id="name" required placeholder="Олександр" pattern="^[\D]+$" title="Ім'я не може містити цифри" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
                     <p id="nameError" class="text-red-500 text-xs mt-1 hidden">Ім'я не повинно містити цифри</p>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-zinc-400 mb-1">Номер телефону</label>
-                    <input type="tel" id="phone" required
-                        class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+                    <input type="tel" id="phone" required class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
                     <p id="phoneError" class="text-red-500 text-xs mt-1 hidden">Невірний формат номера</p>
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-zinc-400 mb-1">Нік у Telegram</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-zinc-500">@</span>
-                        <input type="text" id="telegram" required placeholder="username"
-                            class="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-9 pr-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
+                        <input type="text" id="telegram" required placeholder="username" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-9 pr-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
                     </div>
                 </div>
                 <button type="submit" id="submitBtn" class="w-full py-4 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl transition-all shadow-lg flex justify-center items-center gap-2 mt-2">
-                    <span>ПЕРЕЙТИ ДО ОПЛАТИ</span>
-                    <i data-lucide="credit-card" class="w-5 h-5"></i>
+                    <span>ПЕРЕЙТИ ДО ОПЛАТИ</span><i data-lucide="credit-card" class="w-5 h-5"></i>
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/intlTelInput.min.js"></script>
     <script>
         lucide.createIcons();
 
         // НАЛАШТУВАННЯ
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZULRVimNoWWZ5LGPn1TaPk3COwCpOuENjNa5TM0jjZup91WoHoK25Q_8GFRrXyOzQ/exec'; 
+        const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL'; // ВСТАВ ПОСИЛАННЯ НА СВІЙ GOOGLE SCRIPT !!!
         
-        // WayForPay Дані
         const WFP_MERCHANT_ACCOUNT = "www_instagram_com2361";
         const WFP_SECRET_KEY = "a82c3621f0f5ca58a8ffefc594c842ac430080d2";
         const WFP_AMOUNT = "1";
         const WFP_CURRENCY = "UAH";
         const WFP_PRODUCT_NAME = "Коуч-сесія";
 
-        // Modal Logic
         const modal = document.getElementById('leadModal');
         const modalContent = document.getElementById('modalContent');
         
@@ -485,120 +314,76 @@
             setTimeout(() => modal.classList.add('hidden'), 200);
         }
 
-        // Phone Input
         const phoneInputField = document.querySelector("#phone");
         const iti = window.intlTelInput(phoneInputField, {
-            initialCountry: "auto",
-            excludeCountries: ["ru", "by"],
+            initialCountry: "auto", excludeCountries: ["ru", "by"],
             geoIpLookup: function(callback) {
-                fetch("https://get.geojs.io/v1/ip/country.json")
-                    .then(resp => resp.json())
-                    .then(data => callback(data.country))
-                    .catch(() => callback("ua"));
+                fetch("https://get.geojs.io/v1/ip/country.json").then(resp => resp.json()).then(data => callback(data.country)).catch(() => callback("ua"));
             },
             utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/utils.js",
         });
 
-        // Timer
         function startTimer(duration, display) {
             let timer = duration, hours, minutes, seconds;
-            const interval = setInterval(function () {
-                hours = parseInt(timer / 3600, 10);
-                minutes = parseInt((timer % 3600) / 60, 10);
-                seconds = parseInt(timer % 60, 10);
-                hours = hours < 10 ? "0" + hours : hours;
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-                display.textContent = hours + ":" + minutes + ":" + seconds;
-                if (--timer < 0) { timer = 0; clearInterval(interval); }
+            setInterval(function () {
+                hours = parseInt(timer / 3600, 10); minutes = parseInt((timer % 3600) / 60, 10); seconds = parseInt(timer % 60, 10);
+                display.textContent = (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds < 10 ? "0" + seconds : seconds);
+                if (--timer < 0) timer = 0;
             }, 1000);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             const display = document.querySelector('#hero-timer');
-            if (display) { startTimer(24 * 60 * 60, display); }
+            if (display) startTimer(24 * 60 * 60, display);
         });
 
         function getUTMs() {
             const params = new URLSearchParams(window.location.search);
             return {
-                source: params.get('utm_source') || '',
-                medium: params.get('utm_medium') || '',
-                campaign: params.get('utm_campaign') || '',
-                content: params.get('utm_content') || '',
-                term: params.get('utm_term') || ''
+                source: params.get('utm_source') || '', medium: params.get('utm_medium') || '',
+                campaign: params.get('utm_campaign') || '', content: params.get('utm_content') || '', term: params.get('utm_term') || ''
             };
         }
 
-        // Форма і WayForPay
         document.getElementById('leadForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const nameInput = document.getElementById('name');
             const telegramInput = document.getElementById('telegram');
-            const phoneError = document.getElementById('phoneError');
-            const nameError = document.getElementById('nameError');
             const submitBtn = document.getElementById('submitBtn');
 
-            phoneError.classList.add('hidden');
-            nameError.classList.add('hidden');
-            phoneInputField.classList.remove('border-red-500');
-            nameInput.classList.remove('border-red-500');
-
-            if (/\d/.test(nameInput.value)) {
-                nameError.classList.remove('hidden');
-                nameInput.classList.add('border-red-500');
-                return;
-            }
-
-            if (!iti.isValidNumber()) {
-                phoneError.classList.remove('hidden');
-                phoneInputField.classList.add('border-red-500');
-                return;
-            }
+            if (/\d/.test(nameInput.value)) { document.getElementById('nameError').classList.remove('hidden'); nameInput.classList.add('border-red-500'); return; }
+            if (!iti.isValidNumber()) { document.getElementById('phoneError').classList.remove('hidden'); phoneInputField.classList.add('border-red-500'); return; }
 
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Обробка...';
             lucide.createIcons();
 
             const utms = getUTMs();
-            
-            // 1. Відправляємо ЛІД у таблицю (Ціна порожня)
             const payload = {
-                action: "create_lead",
-                date: new Date().toLocaleString("uk-UA"),
-                name: nameInput.value.trim(),
-                phone: iti.getNumber(),
-                telegram: telegramInput.value.trim(),
-                utm_source: utms.source,
-                utm_medium: utms.medium,
-                utm_campaign: utms.campaign,
-                utm_content: utms.content,
-                utm_term: utms.term
+                action: "create_lead", date: new Date().toLocaleString("uk-UA"), name: nameInput.value.trim(),
+                phone: iti.getNumber(), telegram: telegramInput.value.trim(),
+                utm_source: utms.source, utm_medium: utms.medium, utm_campaign: utms.campaign, utm_content: utms.content, utm_term: utms.term
             };
 
             try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(payload)
-                });
-                
+                // 1. Створюємо лід
+                const response = await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) });
                 const data = await response.json();
-                const currentRowId = data.rowId; // Отримуємо номер рядка з таблиці
+                const currentRowId = data.rowId; 
 
-                // ГЕНЕРУЄМО ПОСИЛАННЯ ДЛЯ РЕДІРЕКТУ НА GOOGLE SCRIPT
-                const targetUrl = window.location.origin + "/thanks.html";
-                const finalReturnUrl = GOOGLE_SCRIPT_URL + "?action=payment_success&rowId=" + currentRowId + "&price=" + WFP_AMOUNT + "&redirect=" + encodeURIComponent(targetUrl);
-
-                // 2. Формуємо оплату WayForPay
+                // 2. Готуємо дані платежу
                 const wayforpay = new Wayforpay();
-                const orderRef = "ORDER_" + currentRowId + "_" + Date.now();
+                const orderRef = "ORDER_" + Date.now();
                 const orderDate = Math.floor(Date.now() / 1000);
                 const domain = window.location.hostname || "transformer.com";
                 
-                // Створення підпису (Signature)
                 const stringToHash = `${WFP_MERCHANT_ACCOUNT};${domain};${orderRef};${orderDate};${WFP_AMOUNT};${WFP_CURRENCY};${WFP_PRODUCT_NAME};1;${WFP_AMOUNT}`;
                 const signature = CryptoJS.HmacMD5(stringToHash, WFP_SECRET_KEY).toString();
+
+                // ФОРМУЄМО ЛІНКИ ДЛЯ GOOGLE SCRIPT
+                const targetUrl = window.location.origin + "/thanks.html";
+                const webhookUrl = GOOGLE_SCRIPT_URL + "?type=webhook&rowId=" + currentRowId;
+                const redirectUrl = GOOGLE_SCRIPT_URL + "?type=redirect&redirectUrl=" + encodeURIComponent(targetUrl);
 
                 wayforpay.run({
                     merchantAccount : WFP_MERCHANT_ACCOUNT,
@@ -613,22 +398,14 @@
                     clientFirstName : nameInput.value.trim(),
                     clientPhone: iti.getNumber(),
                     merchantSignature : signature,
-                    returnUrl: finalReturnUrl // WayForPay відправить клієнта на Google Script
+                    serviceUrl: webhookUrl,    // Запис ціни в базу (тихо)
+                    returnUrl: redirectUrl     // Редірект після оплати (видимо)
                 },
                 async function (response) {
-                    // Якщо оплата пройшла без редіректу (наприклад з ПК)
+                    // Якщо оплата пройшла без редіректу (з ПК)
                     fbq('track', 'Lead');
-                    
-                    await fetch(GOOGLE_SCRIPT_URL, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            action: "update_payment",
-                            rowId: currentRowId,
-                            price: WFP_AMOUNT
-                        })
-                    });
-                    
-                    window.location.href = targetUrl;
+                    await fetch(GOOGLE_SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: "update_payment", rowId: currentRowId, price: WFP_AMOUNT }) });
+                    window.location.href = 'thanks.html';
                 },
                 function (response) {
                     // ВІДХИЛЕНО
@@ -637,10 +414,8 @@
                     submitBtn.innerHTML = '<span>ПЕРЕЙТИ ДО ОПЛАТИ</span><i data-lucide="credit-card" class="w-5 h-5"></i>';
                     lucide.createIcons();
                 },
-                function (response) {
-                    // В ОБРОБЦІ
-                });
-
+                function (response) {} // В ОБРОБЦІ
+                );
             } catch (error) {
                 alert("Сталася помилка. Перевірте з'єднання та спробуйте ще раз.");
                 submitBtn.disabled = false;
