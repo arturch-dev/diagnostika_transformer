@@ -45,6 +45,26 @@ function handleRequest(e) {
   // Target the sheet with ID 0 (gid=0)
   const sheet = ss.getSheets().find(s => s.getSheetId() === 0) || ss.getSheets()[0];
   
+  // 1. Check for Redirect Action (Handles returnUrl/declineUrl to avoid 405 or security blocks)
+  if (e.parameter.action === 'redirect') {
+    const target = e.parameter.target === 'thanks' ? 'thanks.html' : 'failed.html';
+    const origin = e.parameter.origin;
+    // WayForPay sends status in POST body or GET params
+    let status = e.parameter.transactionStatus;
+    if (!status && e.postData && e.postData.contents) {
+       try {
+         const body = JSON.parse(e.postData.contents);
+         status = body.transactionStatus;
+       } catch(err) {}
+    }
+    
+    const redirectUrl = origin + '/' + target + '?transactionStatus=' + (status || 'Approved');
+    
+    return HtmlService.createHtmlOutput(
+      '<html><head><script>window.top.location.href = "' + redirectUrl + '";</script></head><body style="background:#09090b;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;">Перенаправлення...</body></html>'
+    );
+  }
+
   let data;
   if (e.postData && e.postData.contents) {
     try {
