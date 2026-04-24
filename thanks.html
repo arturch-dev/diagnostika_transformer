@@ -58,25 +58,11 @@
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
-
-        .animate-spin-slow {
-            animation: spin 3s linear infinite;
-        }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
     </style>
 </head>
 
 <body class="antialiased min-h-screen flex items-center justify-center px-4">
-
+    
     <!-- LOADING STATE -->
     <div id="loadingState" class="max-w-md w-full text-center space-y-8 py-12">
         <div class="relative inline-flex mb-4">
@@ -87,18 +73,16 @@
         </div>
         <div class="space-y-4">
             <h1 class="text-3xl font-extrabold text-white">Перевірка оплати</h1>
-            <p class="text-zinc-400 text-lg">Будь ласка, зачекайте кілька секунд, поки ми підтверджуємо ваш платіж...
-            </p>
+            <p class="text-zinc-400 text-lg">Будь ласка, зачекайте кілька секунд, поки ми підтверджуємо ваш платіж...</p>
         </div>
     </div>
 
     <!-- SUCCESS CONTENT -->
     <div id="successContent" class="hidden max-w-md w-full text-center space-y-8 py-12">
-        <div
-            class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-green-500/10 border border-green-500/20 mb-4">
+        <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-green-500/10 border border-green-500/20 mb-4">
             <i data-lucide="check-circle" class="w-12 h-12 text-green-500"></i>
         </div>
-
+        
         <div class="space-y-4">
             <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight">
                 УРА! ЗАЯВКУ <span class="text-brand-500 uppercase">ПРИЙНЯТО</span>
@@ -111,8 +95,7 @@
         <div class="glass-panel p-8 rounded-3xl space-y-6">
             <div class="space-y-2">
                 <p class="text-sm text-zinc-500 uppercase tracking-widest font-bold">Наступний крок:</p>
-                <p class="text-zinc-300 font-medium">Перейдіть в мій Instagram і напишіть мені в особисті повідомлення
-                    для узгодження часу</p>
+                <p class="text-zinc-300 font-medium">Перейдіть в мій Instagram і напишіть мені в особисті повідомлення для узгодження часу</p>
             </div>
 
             <a href="https://www.instagram.com/vova.win"
@@ -123,52 +106,86 @@
         </div>
     </div>
 
+    <!-- PENDING / UNCERTAIN STATE -->
+    <div id="pendingState" class="hidden max-w-md w-full text-center space-y-8 py-12">
+        <div class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-yellow-500/10 border border-yellow-500/20 mb-4">
+            <i data-lucide="clock" class="w-12 h-12 text-yellow-500"></i>
+        </div>
+        
+        <div class="space-y-4">
+            <h1 class="text-3xl font-extrabold text-white leading-tight">
+                ПЛАТІЖ В <span class="text-yellow-500 uppercase">ОБРОБЦІ</span>
+            </h1>
+            <p class="text-zinc-400 text-lg">
+                Ми ще не отримали підтвердження від банку. Якщо ви вже оплатили — не хвилюйтеся, це може бути затримка платіжної системи.
+            </p>
+        </div>
+
+        <div class="glass-panel p-8 rounded-3xl space-y-6">
+            <p class="text-zinc-300">Будь ласка, напишіть мені в Instagram, щоб я підтвердив вашу участь вручну.</p>
+            <a href="https://www.instagram.com/vova.win"
+                class="inline-flex w-full justify-center items-center gap-3 px-8 py-5 bg-[#0088cc] hover:bg-[#0077b5] text-white text-[19px] font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(0,136,204,0.4)] transform hover:-translate-y-1">
+                <i data-lucide="send" class="w-6 h-6"></i>
+                <span>НАПИСАТИ В ІНСТАГРАМ</span>
+            </a>
+        </div>
+    </div>
+
     <script src="config.js"></script>
     <script>
         lucide.createIcons();
 
         const loadingState = document.getElementById('loadingState');
         const successContent = document.getElementById('successContent');
+        const pendingState = document.getElementById('pendingState');
         const lastOrderRef = localStorage.getItem('lastOrderRef');
-
+        
         let checkCount = 0;
         const MAX_CHECKS = 6; // ~18 seconds total
 
         function showSuccess() {
             loadingState.style.display = 'none';
+            pendingState.classList.add('hidden');
             successContent.classList.remove('hidden');
             if (window.fbq) fbq('track', 'Purchase', { value: 1000, currency: 'UAH' });
         }
 
+        function showPending() {
+            loadingState.style.display = 'none';
+            successContent.classList.add('hidden');
+            pendingState.classList.remove('hidden');
+        }
+
         function checkStatus() {
             if (!lastOrderRef || typeof APP_CONFIG === 'undefined') {
-                setTimeout(showSuccess, 1500); // Simple delay if no ref
+                showPending();
                 return;
             }
 
             const script = document.createElement('script');
             const callbackName = 'statusCheck_' + Date.now();
-
-            window[callbackName] = function (data) {
+            
+            window[callbackName] = function(data) {
                 console.log('Status update:', data.status);
-
+                
                 if (data.status === 'Оплачено') {
                     showSuccess();
                 } else if (data.status.includes('Відхилено') || data.status.includes('Error')) {
                     window.location.href = 'failed.html' + window.location.search;
                 } else {
+                    // Status is 'Очікує оплати' or 'NotFound'
                     checkCount++;
                     if (checkCount < MAX_CHECKS) {
                         setTimeout(checkStatus, 3000);
                     } else {
-                        showSuccess(); // Timeout fallback
+                        showPending();
                     }
                 }
-
+                
                 delete window[callbackName];
                 document.body.removeChild(script);
             };
-
+            
             script.src = APP_CONFIG.API_ENDPOINT + '?action=checkStatus&orderReference=' + encodeURIComponent(lastOrderRef) + '&callback=' + callbackName;
             document.body.appendChild(script);
         }
@@ -185,5 +202,4 @@
         }
     </script>
 </body>
-
 </html>
