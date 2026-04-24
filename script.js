@@ -200,24 +200,17 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
     wfpForm.querySelector('[name="productPrice[]"]').value = productPrice;
     wfpForm.querySelector('[name="merchantSignature"]').value = signature;
 
-    // Use current URL origin and path as base, but ensure it works on Vercel/LiveServer
-    let baseUrl = window.location.origin + window.location.pathname;
-    if (baseUrl.endsWith('.html')) {
-        baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/'));
-    } else if (baseUrl.endsWith('/')) {
-        baseUrl = baseUrl.slice(0, -1);
-    }
-
-    const urlParams = window.location.search;
+    // 5. Set Redirect URLs
+    // We use Google Apps Script as a proxy for redirects to solve two problems:
+    // 1. HTTP 405 error on Vercel (static sites don't accept POST requests).
+    // 2. Browser security blocks on Localhost (HTTPS -> HTTP redirection from frames).
+    const gasBaseUrl = APP_CONFIG.API_ENDPOINT;
+    const currentOrigin = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/');
     
-    // Vercel handling: use API endpoints for redirects to avoid HTTP 405 on POST
-    const isVercel = window.location.hostname.includes('vercel.app');
-    const thanksPath = isVercel ? '/api/thanks' : '/thanks.html';
-    const failedPath = isVercel ? '/api/failed' : '/failed.html';
-
-    wfpForm.querySelector('[name="returnUrl"]').value = baseUrl + thanksPath + urlParams;
-    wfpForm.querySelector('[name="declineUrl"]').value = baseUrl + failedPath + urlParams;
-    wfpForm.querySelector('[name="serviceUrl"]').value = APP_CONFIG.API_ENDPOINT;
+    // WayForPay will POST to GAS, and GAS will return HTML that redirects the top window via GET.
+    wfpForm.querySelector('[name="returnUrl"]').value = `${gasBaseUrl}?action=redirect&target=thanks&origin=${encodeURIComponent(currentOrigin)}`;
+    wfpForm.querySelector('[name="declineUrl"]').value = `${gasBaseUrl}?action=redirect&target=failed&origin=${encodeURIComponent(currentOrigin)}`;
+    wfpForm.querySelector('[name="serviceUrl"]').value = gasBaseUrl;
 
     if (window.fbq) fbq('track', 'Lead');
     
