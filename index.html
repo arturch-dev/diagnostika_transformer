@@ -457,7 +457,7 @@
         lucide.createIcons();
 
         // НАЛАШТУВАННЯ
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZULRVimNoWWZ5LGPn1TaPk3COwCpOuENjNa5TM0jjZup91WoHoK25Q_8GFRrXyOzQ/exec'; // ВСТАВ СЮДИ ПОСИЛАННЯ НА GOOGLE APPS SCRIPT
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZULRVimNoWWZ5LGPn1TaPk3COwCpOuENjNa5TM0jjZup91WoHoK25Q_8GFRrXyOzQ/exec'; 
         
         // WayForPay Дані
         const WFP_MERCHANT_ACCOUNT = "www_instagram_com2361";
@@ -586,6 +586,14 @@
                 const data = await response.json();
                 const currentRowId = data.rowId; // Отримуємо номер рядка з таблиці
 
+                // Динамічно формуємо URL для повернення
+                const url = new URL(window.location.href);
+                // Замінюємо поточний шлях на thanks.html
+                url.pathname = url.pathname.substring(0, url.pathname.lastIndexOf('/')) + '/thanks.html';
+                // Додаємо rowId як параметр
+                url.searchParams.set('rowId', currentRowId);
+                const finalReturnUrl = url.toString();
+
                 // 2. Формуємо оплату WayForPay
                 const wayforpay = new Wayforpay();
                 const orderRef = "ORDER_" + Date.now();
@@ -608,24 +616,13 @@
                     productPrice : [WFP_AMOUNT],
                     clientFirstName : nameInput.value.trim(),
                     clientPhone: iti.getNumber(),
-                    merchantSignature : signature
+                    merchantSignature : signature,
+                    returnUrl: finalReturnUrl // ПРИМУСОВИЙ РЕДІРЕКТ
                 },
-                async function (response) {
-                    // ОПЛАТА УСПІШНА
+                function (response) {
+                    // Якщо відпрацював JS Callback
                     fbq('track', 'Lead');
-                    
-                    // Відправляємо запит на оновлення колонки "Ціна" в таблиці
-                    await fetch(GOOGLE_SCRIPT_URL, {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            action: "update_payment",
-                            rowId: currentRowId,
-                            price: WFP_AMOUNT
-                        })
-                    });
-                    
-                    // Редірект на сторінку подяки
-                    window.location.href = 'thanks.html' + window.location.search;
+                    window.location.href = finalReturnUrl;
                 },
                 function (response) {
                     // ВІДХИЛЕНО
