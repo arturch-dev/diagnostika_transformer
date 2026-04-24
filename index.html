@@ -50,9 +50,8 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Скрипти WayForPay (ДОДАНО) -->
+    <!-- Бібліотека для генерації ключа WayForPay -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script id="widget-wfp-script" language="javascript" type="text/javascript" src="https://secure.wayforpay.com/server/pay-widget.js"></script>
 
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f8fafc; }
@@ -262,6 +261,7 @@
                 <!-- Ліве Фото (До) -->
                 <div class="w-full md:w-[30%]">
                     <div class="w-full h-[400px] md:h-[550px] rounded-2xl overflow-hidden shadow-lg border border-zinc-800">
+                        <!-- ВСТАВ СВОЄ ФОТО "ДО" -->
                         <img src="before1.jpg" alt="До" class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -280,6 +280,7 @@
                         </ul>
                     </div>
 
+                    <!-- Декоративна лінія (опціонально для дизайну) -->
                     <div class="w-12 h-1 bg-zinc-800 rounded-full"></div>
 
                     <!-- Точка Б -->
@@ -298,6 +299,7 @@
                 <!-- Праве Фото (Після) -->
                 <div class="w-full md:w-[30%]">
                     <div class="w-full h-[400px] md:h-[550px] rounded-2xl overflow-hidden shadow-lg border border-brand-500/30">
+                        <!-- ВСТАВ СВОЄ ФОТО "ПІСЛЯ" -->
                         <img src="after1.jpg" alt="Після" class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -308,6 +310,7 @@
 
     <!-- БЛОК 6: ПЕРЕДОСТАННІЙ (ЦІННІСТЬ) -->
     <section class="py-16 md:py-24 bg-brand-500 px-4 relative overflow-hidden">
+        <!-- Декоративні елементи -->
         <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 blur-[80px] rounded-full"></div>
         <div class="absolute bottom-0 left-0 w-64 h-64 bg-black opacity-10 blur-[80px] rounded-full"></div>
         
@@ -339,6 +342,7 @@
             <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center text-white">Часті питання</h2>
             
             <div class="space-y-4">
+                <!-- Питання 1 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
                     <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">1. Це черговий коучинг “про поговорити”?</span>
@@ -351,6 +355,7 @@
                     </div>
                 </details>
 
+                <!-- Питання 2 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
                     <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">2. У мене вже був досвід курсів/коучів і це не дало результату. Чим це відрізняється?</span>
@@ -363,6 +368,7 @@
                     </div>
                 </details>
 
+                <!-- Питання 3 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
                     <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">3. А якщо у мене зараз повний хаос і немає навіть розуміння, що не так?</span>
@@ -375,6 +381,7 @@
                     </div>
                 </details>
 
+                <!-- Питання 4 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
                     <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">4. Скільки часу це займає і як проходить?</span>
@@ -387,6 +394,7 @@
                     </div>
                 </details>
 
+                <!-- Питання 5 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
                     <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">5. Що буде після сесії? Чи вистачить одного разу?</span>
@@ -419,7 +427,7 @@
             </button>
             <div class="text-center mb-8">
                 <h3 class="text-2xl font-bold text-white mb-2">Реєстрація на розбір</h3>
-                <p class="text-zinc-400 text-sm">Залиште свої дані, щоб закріпити місце</p>
+                <p class="text-zinc-400 text-sm">Введіть дані для переходу до оплати (1000 грн)</p>
             </div>
             <form id="leadForm" class="space-y-5">
                 <div>
@@ -443,7 +451,7 @@
                     </div>
                 </div>
                 <button type="submit" id="submitBtn" class="w-full py-4 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl transition-all shadow-lg flex justify-center items-center gap-2 mt-2">
-                    <span>ПІДТВЕРДИТИ</span>
+                    <span>ПЕРЕЙТИ ДО ОПЛАТИ</span>
                     <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </button>
             </form>
@@ -455,15 +463,14 @@
     <script>
         lucide.createIcons();
 
-        // 🟢 ВАЖЛИВО: Встав сюди свій URL розгорнутого скрипта (Google Apps Script)
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzy6MwwD8CnNNl_6LxbRUJNlevFxnTtWj2J6nuYuL8EUaPZKDE-ze9bSge11a5cgFJp/exec'; 
+        // Settings (ЗАМІНИТИ ТУТ GOOGLE SCRIPT URL)
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz98a0elbZJks4paCsYdlT_s2CAH1M2AeNBDmGKNCW4g4OuVljgBY3_d8zj7JDztoRL/exec'; 
         
-        // 🔴 ТУТ МІНЯЄШ ЦІНУ ДЛЯ ТЕСТУ. Якщо хочеш за 1 грн - пиши "1". Потім поверни "1000"
-        const PAYMENT_AMOUNT = "3"; 
-
-        // Налаштування мерчанта WayForPay
-        const MERCHANT_ACCOUNT = "www_instagram_com2361";
-        const MERCHANT_SECRET = "a82c3621f0f5ca58a8ffefc594c842ac430080d2";
+        // WayForPay Credentials
+        const WFP_MERCHANT = 'www_instagram_com2361';
+        const WFP_SECRET = 'a82c3621f0f5ca58a8ffefc594c842ac430080d2';
+        const WFP_PRICE = '1000';
+        const WFP_PRODUCT = 'Коуч-сесія';
 
         // Modal Logic
         const modal = document.getElementById('leadModal');
@@ -532,7 +539,7 @@
             };
         }
 
-        // Form Submission + WayForPay Logic
+        // Form Submission & WFP Redirect
         document.getElementById('leadForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -559,126 +566,103 @@
                 return;
             }
 
-            // Блокуємо кнопку
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Завантаження...';
+            submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Створення ордеру...';
             lucide.createIcons();
 
-            const orderRef = "ORD_" + Date.now();
             const utms = getUTMs();
-            
+            const orderRef = 'ORDER_' + Date.now(); // Унікальний ID замовлення
+
             const payload = {
-                action: "init", // Збереження ліда БЕЗ ціни
                 date: new Date().toLocaleString("uk-UA"),
                 name: nameInput.value.trim(),
                 phone: iti.getNumber(),
                 telegram: telegramInput.value.trim(),
-                orderRef: orderRef,
+                price: WFP_PRICE,
                 utm_source: utms.source,
                 utm_medium: utms.medium,
                 utm_campaign: utms.campaign,
                 utm_content: utms.content,
-                utm_term: utms.term
+                utm_term: utms.term,
+                order_id: orderRef,
+                status: "Очікує оплати"
             };
 
             try {
-                // Відправляємо дані у Google Sheet (БЕЗ ЦІНИ)
+                // Відправляємо дані в Google Таблицю (щоб не згубити лід, якщо він не оплатить)
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     body: JSON.stringify(payload)
                 });
 
                 if (response.ok) {
-                    // ГАРАНТІЯ: Зберігаємо змінні для сторінки подяки ЩЕ ДО відкриття оплати
-                    localStorage.setItem("wfp_orderRef", orderRef);
-                    localStorage.setItem("wfp_price", PAYMENT_AMOUNT);
+                    fbq('track', 'Lead');
+
+                    // ==========================================
+                    // ЛОГІКА ПЕРЕХОДУ НА WAYFORPAY
+                    // ==========================================
                     
-                    // Відкриваємо оплату
-                    startWayForPayWidget(orderRef, payload.name, payload.phone);
+                    const domainName = window.location.hostname || "transformer.com";
+                    const orderDate = Math.floor(Date.now() / 1000);
+                    
+                    // Формування рядка для хешування (сувора послідовність за API WFP)
+                    const stringToSign = `${WFP_MERCHANT};${domainName};${orderRef};${orderDate};${WFP_PRICE};UAH;${WFP_PRODUCT};1;${WFP_PRICE}`;
+                    
+                    // Генерація MD5 Signature за допомогою crypto-js
+                    const signature = CryptoJS.HmacMD5(stringToSign, WFP_SECRET).toString();
+
+                    // Формування посилання на сторінку подяки (динамічно)
+                    const currentUrl = window.location.href.split('?')[0];
+                    const returnUrl = currentUrl.replace('index.html', '').replace(/\/$/, '') + '/thanks.html' + window.location.search;
+
+                    // Створення прихованої форми
+                    const wfpForm = document.createElement("form");
+                    wfpForm.method = "POST";
+                    wfpForm.action = "https://secure.wayforpay.com/pay";
+                    wfpForm.style.display = "none";
+
+                    const params = {
+                        merchantAccount: WFP_MERCHANT,
+                        merchantDomainName: domainName,
+                        merchantSignature: signature,
+                        orderReference: orderRef,
+                        orderDate: orderDate,
+                        amount: WFP_PRICE,
+                        currency: "UAH",
+                        productName: WFP_PRODUCT,
+                        productPrice: WFP_PRICE,
+                        productCount: "1",
+                        clientFirstName: nameInput.value.trim(),
+                        clientPhone: iti.getNumber(),
+                        language: "UK",
+                        returnUrl: returnUrl, 
+                        serviceUrl: GOOGLE_SCRIPT_URL // Вебхук для зміни статусу
+                    };
+
+                    const arrayParams = ['productName', 'productPrice', 'productCount'];
+
+                    for (const key in params) {
+                        const input = document.createElement("input");
+                        input.type = "hidden";
+                        // Додаємо [] до параметрів товарів згідно з вимогами WFP
+                        input.name = arrayParams.includes(key) ? key + "[]" : key;
+                        input.value = params[key];
+                        wfpForm.appendChild(input);
+                    }
+
+                    document.body.appendChild(wfpForm);
+                    wfpForm.submit(); // Автоматичний перехід на оплату
+
                 } else {
-                    throw new Error('Network response was not ok');
+                    throw new Error('Network response error');
                 }
             } catch (error) {
-                alert("Сталася помилка при відправці. Спробуйте ще раз.");
+                alert("Сталася помилка. Спробуйте ще раз.");
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>ПІДТВЕРДИТИ</span><i data-lucide="arrow-right" class="w-5 h-5"></i>';
+                submitBtn.innerHTML = '<span>ПЕРЕЙТИ ДО ОПЛАТИ</span><i data-lucide="arrow-right" class="w-5 h-5"></i>';
                 lucide.createIcons();
             }
         });
-
-        // Ініціалізація віджета WayForPay (БЕЗПЕЧНА ВЕРСІЯ)
-        function startWayForPayWidget(orderRef, clientName, clientPhone) {
-            // 1. Захист для тестів з локального комп'ютера
-            let domain = window.location.hostname;
-            if (!domain || domain === "" || domain === "localhost") {
-                domain = "transformer.com"; 
-            }
-
-            const orderDate = Math.floor(Date.now() / 1000);
-            const currency = "UAH";
-            
-            // Забрали кирилицю та спецсимволи, щоб уникнути збоїв криптографії MD5
-            const productName = "Coach session"; 
-            
-            // 2. Суворий порядок формування рядка для підпису (як вимагає документація WFP)
-            const hashString = `${MERCHANT_ACCOUNT};${domain};${orderRef};${orderDate};${PAYMENT_AMOUNT};${currency};${productName};1;${PAYMENT_AMOUNT}`;
-            
-            // Примусове кодування в UTF-8 для правильного хешування
-            const signature = CryptoJS.HmacMD5(CryptoJS.enc.Utf8.parse(hashString), MERCHANT_SECRET).toString();
-
-            const wayforpay = new Wayforpay();
-            
-            // Базові параметри
-            let wfpParams = {
-                merchantAccount: MERCHANT_ACCOUNT,
-                merchantDomainName: domain,
-                authorizationType: "SimpleSignature",
-                merchantSignature: signature,
-                orderReference: orderRef,
-                orderDate: orderDate,
-                amount: PAYMENT_AMOUNT,
-                currency: currency,
-                productName: [productName],
-                productPrice: [PAYMENT_AMOUNT],
-                productCount: [1],
-                clientFirstName: clientName,
-                clientPhone: clientPhone,
-                language: "UA"
-            };
-
-            // 3. Додаємо запасний редірект ТІЛЬКИ якщо сайт вже на хостингу (http/https)
-            if (window.location.protocol.startsWith('http')) {
-                const baseUrl = window.location.href.split('?')[0].replace('index.html', '');
-                wfpParams.returnUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'thanks.html';
-            }
-
-            wayforpay.run(wfpParams,
-                function (response) {
-                    // ПЛАТІЖ УСПІШНИЙ (Approved)
-                    fbq('track', 'Lead');
-                    window.location.href = 'thanks.html' + window.location.search;
-                },
-                function (response) {
-                    // ПЛАТІЖ ВІДХИЛЕНО (АБО ЗАКРИТО)
-                    localStorage.removeItem("wfp_orderRef");
-                    localStorage.removeItem("wfp_price");
-                    
-                    // Покажемо ТОЧНУ причину відмови, якщо це банк
-                    let errorMsg = response.reason || "Вікно оплати було закрито.";
-                    alert("Помилка: " + errorMsg);
-                    
-                    const btn = document.getElementById('submitBtn');
-                    btn.disabled = false;
-                    btn.innerHTML = '<span>ПІДТВЕРДИТИ</span><i data-lucide="arrow-right" class="w-5 h-5"></i>';
-                    lucide.createIcons();
-                },
-                function (response) {
-                    // ПЛАТІЖ В ОБРОБЦІ (Pending) - Редірект працює!
-                    fbq('track', 'Lead');
-                    window.location.href = 'thanks.html' + window.location.search;
-                }
-            );
-        }
     </script>
 </body>
 </html>
