@@ -19,7 +19,7 @@
     
     // Динамічно передаємо суму покупки для аналітики Facebook
     const paidPrice = localStorage.getItem("wfp_price") || 1000;
-    fbq('track', 'Purchase', {currency: "UAH", value: paidPrice}); 
+    fbq('track', 'Purchase', {currency: "UAH", value: 1.00}); 
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=937221912419607&ev=PageView&noscript=1"
