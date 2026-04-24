@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Коуч-сесія | TRANSFORMER</title>
-    
+
     <!-- Meta Pixel Code -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '937221912419607'); // ВСТАВ СВІЙ ID ПІКСЕЛЯ
-    fbq('track', 'PageView');
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '937221912419607');
+        fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=937221912419607&ev=PageView&noscript=1"
-    /></noscript>
+            src="https://www.facebook.com/tr?id=937221912419607&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
 
     <!-- Tailwind CSS -->
@@ -46,41 +49,31 @@
 
     <!-- Intl-Tel-Input CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/css/intlTelInput.css" />
-    
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <style>
-        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f8fafc; }
-        .iti { width: 100%; }
-        .iti__country-list { background-color: #18181b; color: white; border: 1px solid #3f3f46; }
-        .iti__country.iti__highlight { background-color: #27272a; }
-        .iti__divider { border-bottom: 1px solid #3f3f46; }
-        
-        .glass-panel {
-            background: rgba(24, 24, 27, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Приховати стандартний трикутник в FAQ */
-        details > summary { list-style: none; }
-        details > summary::-webkit-details-marker { display: none; }
-    </style>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="antialiased pb-20 md:pb-0">
 
     <!-- БЛОК 1: HERO -->
     <section class="relative min-h-[100svh] md:min-h-[85vh] flex flex-col justify-between overflow-hidden">
         <div class="absolute inset-0 z-0 bg-[#09090b]">
-            <img src="main.PNG" alt="Автор" class="w-full h-full object-cover object-top md:object-right-top opacity-90" loading="eager">
+            <img src="main.PNG" alt="Автор" class="w-full h-full object-cover object-top md:object-right-top opacity-90"
+                loading="eager">
             <div class="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-[#09090b]/80 to-transparent"></div>
-            <div class="absolute bottom-0 left-0 right-0 h-[80%] md:h-full bg-gradient-to-t from-[#09090b] via-[#09090b]/95 md:via-[#09090b]/50 to-transparent md:bg-gradient-to-r md:from-[#09090b] md:via-[#09090b]/80 md:to-transparent"></div>
+            <div
+                class="absolute bottom-0 left-0 right-0 h-[80%] md:h-full bg-gradient-to-t from-[#09090b] via-[#09090b]/95 md:via-[#09090b]/50 to-transparent md:bg-gradient-to-r md:from-[#09090b] md:via-[#09090b]/80 md:to-transparent">
+            </div>
         </div>
 
         <div class="relative z-10 w-full max-w-6xl mx-auto flex flex-col h-full flex-grow px-4 pb-12 pt-6">
             <div class="flex justify-center md:justify-start">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-500/50 bg-black/40 backdrop-blur-md text-brand-500 text-sm font-semibold uppercase tracking-wider shadow-lg">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-500/50 bg-black/40 backdrop-blur-md text-brand-500 text-sm font-semibold uppercase tracking-wider shadow-lg">
                     <i data-lucide="zap" class="w-4 h-4"></i>
                     Трансформація починається тут
                 </div>
@@ -93,10 +86,11 @@
                     60 хвилинна <span class="text-brand-500">коуч сесія</span>
                 </h1>
                 <p class="text-lg md:text-xl text-zinc-200 font-medium leading-relaxed drop-shadow-md">
-                    Перестань жити в хаосі та зрозумій, чому ти застряг на одному рівні — навіть якщо працюєш більше за всіх.
+                    Перестань жити в хаосі та зрозумій, чому ти застряг на одному рівні — навіть якщо працюєш більше за
+                    всіх.
                 </p>
                 <p class="text-base md:text-lg text-zinc-300 drop-shadow-md hidden md:block">
-                    За 60 хвилин розберемо, чому ти роками ходиш по колу — і що з цим робити.
+                    За 60 хвилин розберемо, чому ты роками ходиш по колу — і що з цим робити.
                 </p>
 
                 <div class="flex flex-col items-center md:items-start gap-4 pt-2">
@@ -104,16 +98,19 @@
                         <span class="text-4xl font-extrabold text-brand-500 drop-shadow-lg">1000 грн</span>
                         <span class="text-xl font-medium text-zinc-400 line-through mb-1">4300 грн</span>
                     </div>
-                    
-                    <div class="flex items-center gap-2 px-4 py-2 bg-zinc-900/80 border border-zinc-700 rounded-lg backdrop-blur-sm inline-flex">
+
+                    <div
+                        class="flex items-center gap-2 px-4 py-2 bg-zinc-900/80 border border-zinc-700 rounded-lg backdrop-blur-sm inline-flex">
                         <i data-lucide="timer" class="w-5 h-5 text-brand-500 animate-pulse"></i>
                         <span class="text-sm text-zinc-300">Знижка згорить через:</span>
-                        <span id="hero-timer" class="text-lg font-bold text-white tracking-widest w-[56px] text-center">24:00:00</span>
+                        <span id="hero-timer"
+                            class="text-lg font-bold text-white tracking-widest w-[56px] text-center">24:00:00</span>
                     </div>
                 </div>
 
                 <div class="pt-2">
-                    <button onclick="openModal()" class="w-full md:w-auto px-10 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:shadow-[0_0_30px_rgba(255,90,0,0.6)] transform hover:-translate-y-1">
+                    <button onclick="openModal()"
+                        class="w-full md:w-auto px-10 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:shadow-[0_0_30px_rgba(255,90,0,0.6)] transform hover:-translate-y-1">
                         ОТРИМАТИ РОЗБІР
                     </button>
                 </div>
@@ -125,9 +122,10 @@
     <section class="py-16 md:py-24 bg-zinc-900 px-4">
         <div class="max-w-4xl mx-auto">
             <h2 class="text-3xl md:text-5xl font-bold mb-10 text-center">Що буде на коуч-сесії</h2>
-            
+
             <div class="glass-panel p-6 md:p-12 rounded-3xl">
-                <p class="text-xl mb-6 font-medium text-center md:text-left">За 60 хвилин ми детально розберемо твою ситуацію по ключовим сферам життя:</p>
+                <p class="text-xl mb-6 font-medium text-center md:text-left">За 60 хвилин ми детально розберемо твою
+                    ситуацію по ключовим сферам життя:</p>
                 <ul class="space-y-4 mb-8">
                     <li class="flex items-start gap-4">
                         <i data-lucide="check-circle-2" class="w-6 h-6 text-brand-500 shrink-0 mt-0.5"></i>
@@ -148,7 +146,8 @@
                 </ul>
 
                 <div class="border-t border-zinc-800 pt-8">
-                    <h3 class="text-2xl font-bold mb-6 text-brand-500 text-center md:text-left">Що ми зробимо за 60 хвилин:</h3>
+                    <h3 class="text-2xl font-bold mb-6 text-brand-500 text-center md:text-left">Що ми зробимо за 60
+                        хвилин:</h3>
                     <div class="grid md:grid-cols-3 gap-6">
                         <div class="bg-zinc-950/50 p-6 rounded-2xl border border-zinc-800">
                             <i data-lucide="map" class="w-8 h-8 text-white mb-4"></i>
@@ -165,9 +164,10 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="mt-10 flex justify-center">
-                <button onclick="openModal()" class="w-full md:w-auto px-10 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:-translate-y-1">
+                <button onclick="openModal()"
+                    class="w-full md:w-auto px-10 py-4 bg-brand-500 hover:bg-brand-600 text-white text-lg font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(255,90,0,0.4)] hover:-translate-y-1">
                     ОТРИМАТИ РОЗБІР
                 </button>
             </div>
@@ -176,10 +176,12 @@
 
     <!-- БЛОК 3: ЩО ТИ ОТРИМАЄШ -->
     <section class="py-16 md:py-24 px-4 relative bg-[#09090b]">
-        <div class="absolute left-0 bottom-0 w-96 h-96 rounded-full bg-brand-500 opacity-10 blur-[120px] pointer-events-none"></div>
+        <div
+            class="absolute left-0 bottom-0 w-96 h-96 rounded-full bg-brand-500 opacity-10 blur-[120px] pointer-events-none">
+        </div>
         <div class="max-w-5xl mx-auto">
             <h2 class="text-3xl md:text-5xl font-bold mb-10 text-center">За 60 хвилин на сесії в тебе з'явиться:</h2>
-            
+
             <div class="grid md:grid-cols-2 gap-4 md:gap-6 mb-12">
                 <div class="glass-panel p-6 md:p-8 rounded-2xl">
                     <i data-lucide="brain" class="w-10 h-10 text-brand-500 mb-4"></i>
@@ -203,7 +205,8 @@
                 </div>
             </div>
 
-            <div class="text-center bg-brand-500 text-white p-6 md:p-8 rounded-3xl font-bold text-xl md:text-2xl shadow-[0_0_30px_rgba(255,90,0,0.3)]">
+            <div
+                class="text-center bg-brand-500 text-white p-6 md:p-8 rounded-3xl font-bold text-xl md:text-2xl shadow-[0_0_30px_rgba(255,90,0,0.3)]">
                 Це точка, з якої в багатьох починається реальний рух і результат
             </div>
         </div>
@@ -213,34 +216,40 @@
     <section class="py-16 md:py-24 bg-zinc-900 px-4">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-12">
             <div class="flex-1 w-full relative">
-                <img src="author.PNG" alt="Автор" class="rounded-2xl object-cover w-full shadow-xl border border-zinc-800" loading="lazy">
+                <img src="author.PNG" alt="Автор"
+                    class="rounded-2xl object-cover w-full shadow-xl border border-zinc-800" loading="lazy">
             </div>
             <div class="flex-1 space-y-6">
                 <h2 class="text-3xl md:text-4xl font-bold uppercase leading-tight text-center md:text-left">
                     Коуч для підприємців <span class="text-brand-500">Володимир Гаврилюк</span>
                 </h2>
-                
+
                 <div class="space-y-5 text-zinc-300 text-lg">
                     <div class="flex items-start gap-4">
-                        <div class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30">
+                        <div
+                            class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30">
                             <div class="w-2 h-2 rounded-full bg-brand-500 shadow-[0_0_8px_rgba(255,90,0,0.8)]"></div>
                         </div>
                         <p>Автор трансформаційної програми Transformer.</p>
                     </div>
                     <div class="flex items-start gap-4">
-                        <div class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30">
+                        <div
+                            class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30">
                             <div class="w-2 h-2 rounded-full bg-brand-500 shadow-[0_0_8px_rgba(255,90,0,0.8)]"></div>
                         </div>
                         <p>Пройшов шлях від кухаря в Словаччині зі стелею €1000 — до сертифікованого коуча ICF.</p>
                     </div>
                     <div class="flex items-start gap-4">
-                        <div class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30">
+                        <div
+                            class="flex items-center justify-center w-6 h-6 rounded-full bg-brand-500/10 shrink-0 mt-0.5 border border-brand-500/30">
                             <div class="w-2 h-2 rounded-full bg-brand-500 shadow-[0_0_8px_rgba(255,90,0,0.8)]"></div>
                         </div>
-                        <p>На сесії ділюсь інструментами і підходами, які реально працюють і допомогли мені повністю змінити себе та своє життя.</p>
+                        <p>На сесії ділюсь інструментами і підходами, які реально працюють і допомогли мені повністю
+                            змінити себе та своє життя.</p>
                     </div>
 
-                    <p class="font-bold text-white border-l-4 border-brand-500 pl-4 py-3 bg-zinc-800/50 rounded-r-lg mt-6 shadow-sm">
+                    <p
+                        class="font-bold text-white border-l-4 border-brand-500 pl-4 py-3 bg-zinc-800/50 rounded-r-lg mt-6 shadow-sm">
                         Персональна коуч-сесія - твоя можливість почати все з чистого листа.
                     </p>
                 </div>
@@ -248,27 +257,25 @@
         </div>
     </section>
 
-    <!-- БЛОК 5: НОВИЙ ДО/ПІСЛЯ -->
+    <!-- БЛОК 5: ТРАНСФОРМАЦІЯ -->
     <section class="py-16 md:py-24 bg-[#09090b] px-4 border-t border-zinc-800">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl md:text-6xl font-extrabold mb-16 text-center text-white uppercase tracking-tight">Трансформація</h2>
-            
+            <h2 class="text-4xl md:text-6xl font-extrabold mb-16 text-center text-white uppercase tracking-tight">
+                Трансформація</h2>
+
             <div class="flex flex-col md:flex-row items-stretch justify-between gap-8 md:gap-4 relative">
-                
-                <!-- Ліве Фото (До) -->
                 <div class="w-full md:w-[30%]">
-                    <div class="w-full h-[400px] md:h-[550px] rounded-2xl overflow-hidden shadow-lg border border-zinc-800">
-                        <!-- ВСТАВ СВОЄ ФОТО "ДО" -->
+                    <div
+                        class="w-full h-[400px] md:h-[550px] rounded-2xl overflow-hidden shadow-lg border border-zinc-800">
                         <img src="before1.jpg" alt="До" class="w-full h-full object-cover">
                     </div>
                 </div>
 
-                <!-- Центральний Текст -->
                 <div class="w-full md:w-[40%] flex flex-col justify-center space-y-12 px-2 py-4">
-                    
-                    <!-- Точка А -->
                     <div class="relative">
-                        <div class="inline-block bg-white text-black px-4 py-1.5 font-bold rounded-md mb-5 text-sm uppercase tracking-wide">Точка А</div>
+                        <div
+                            class="inline-block bg-white text-black px-4 py-1.5 font-bold rounded-md mb-5 text-sm uppercase tracking-wide">
+                            Точка А</div>
                         <ul class="text-zinc-400 space-y-3 text-lg md:text-xl font-medium">
                             <li class="flex gap-3"><span class="text-zinc-600">/</span> Зайва вага / Залежності</li>
                             <li class="flex gap-3"><span class="text-zinc-600">/</span> Відсутність ясності</li>
@@ -276,13 +283,11 @@
                             <li class="flex gap-3"><span class="text-zinc-600">/</span> Постійний внутрішній хаос</li>
                         </ul>
                     </div>
-
-                    <!-- Декоративна лінія (опціонально для дизайну) -->
                     <div class="w-12 h-1 bg-zinc-800 rounded-full"></div>
-
-                    <!-- Точка Б -->
                     <div class="relative">
-                        <div class="inline-block bg-white text-black px-4 py-1.5 font-bold rounded-md mb-5 text-sm uppercase tracking-wide">Точка Б</div>
+                        <div
+                            class="inline-block bg-white text-black px-4 py-1.5 font-bold rounded-md mb-5 text-sm uppercase tracking-wide">
+                            Точка Б</div>
                         <ul class="text-white space-y-3 text-lg md:text-xl font-medium">
                             <li class="flex gap-3"><span class="text-brand-500">/</span> Коуч для підприємців</li>
                             <li class="flex gap-3"><span class="text-brand-500">/</span> Сильна внутрішня опора</li>
@@ -290,27 +295,23 @@
                             <li class="flex gap-3"><span class="text-brand-500">/</span> Довгострокове бачення і місія</li>
                         </ul>
                     </div>
-
                 </div>
 
-                <!-- Праве Фото (Після) -->
                 <div class="w-full md:w-[30%]">
-                    <div class="w-full h-[400px] md:h-[550px] rounded-2xl overflow-hidden shadow-lg border border-brand-500/30">
-                        <!-- ВСТАВ СВОЄ ФОТО "ПІСЛЯ" -->
+                    <div
+                        class="w-full h-[400px] md:h-[550px] rounded-2xl overflow-hidden shadow-lg border border-brand-500/30">
                         <img src="after1.jpg" alt="Після" class="w-full h-full object-cover">
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
 
-    <!-- БЛОК 6: ПЕРЕДОСТАННІЙ (ЦІННІСТЬ) -->
+    <!-- БЛОК 6: ЦІННІСТЬ -->
     <section class="py-16 md:py-24 bg-brand-500 px-4 relative overflow-hidden">
-        <!-- Декоративні елементи -->
         <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 blur-[80px] rounded-full"></div>
         <div class="absolute bottom-0 left-0 w-64 h-64 bg-black opacity-10 blur-[80px] rounded-full"></div>
-        
+
         <div class="max-w-4xl mx-auto text-center relative z-10">
             <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight drop-shadow-md">
                 Кожен місяць без системи = <br class="hidden md:block">втрачені гроші і можливості.
@@ -318,15 +319,17 @@
             <p class="text-xl md:text-2xl text-white/90 font-medium mb-10">
                 Поки ти бігаєш всюди і шукаєш рішення — ти недозаробляєш.
             </p>
-            
+
             <div class="bg-black/20 p-8 md:p-10 rounded-3xl backdrop-blur-md border border-white/20 shadow-2xl">
                 <p class="text-lg md:text-xl text-white font-medium leading-relaxed">
-                    За 60 хвилин на сесії ми глибинно зануримося в твою ситуацію, точково знайдемо проблеми, які зупиняють твій ріст та складемо план вирішення цих проблем.
+                    За 60 хвилин на сесії ми глибинно зануримося в твою ситуацію, точково знайдемо проблеми, які
+                    зупиняють твій ріст та складемо план вирішення цих проблем.
                 </p>
             </div>
-            
+
             <div class="mt-12 flex justify-center">
-                <button onclick="openModal()" class="w-full md:w-auto px-12 py-5 bg-zinc-950 hover:bg-black text-white text-[19px] font-bold rounded-xl transition-all shadow-[0_0_30px_rgba(0,0,0,0.5)] transform hover:-translate-y-1">
+                <button onclick="openModal()"
+                    class="w-full md:w-auto px-12 py-5 bg-zinc-950 hover:bg-black text-white text-[19px] font-bold rounded-xl transition-all shadow-[0_0_30px_rgba(0,0,0,0.5)] transform hover:-translate-y-1">
                     ОТРИМАТИ РОЗБІР
                 </button>
             </div>
@@ -337,79 +340,98 @@
     <section class="py-16 md:py-24 bg-[#09090b] px-4">
         <div class="max-w-3xl mx-auto">
             <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center text-white">Часті питання</h2>
-            
             <div class="space-y-4">
                 <!-- Питання 1 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
+                    <summary
+                        class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">1. Це черговий коучинг “про поговорити”?</span>
                         <span class="transition group-open:rotate-180 shrink-0 text-brand-500">
                             <i data-lucide="chevron-down" class="w-6 h-6"></i>
                         </span>
                     </summary>
-                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
-                        Ні. Тут немає мотиваційних розмов і “подумай інакше”. Ми розбираємо твою ситуацію по факту: де ти втрачаєш контроль, що не працює і що конкретно змінити. Ти отримуєш чіткий план дій, а не роздуми.
+                    <div
+                        class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
+                        Ні. Тут немає мотиваційних розмов і “подумай інакше”. Ми розбираємо твою ситуацію по факту: де
+                        ти втрачаєш контроль, що не працює і що конкретно змінити. Ти отримуєш чіткий план дій, а не
+                        роздуми.
                     </div>
                 </details>
 
                 <!-- Питання 2 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
-                        <span class="pr-6">2. У мене вже був досвід курсів/коучів і це не дало результату. Чим це відрізняється?</span>
+                    <summary
+                        class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
+                        <span class="pr-6">2. У мене вже був досвід курсів/коучів і це не дало результату. Чим це
+                            відрізняється?</span>
                         <span class="transition group-open:rotate-180 shrink-0 text-brand-500">
                             <i data-lucide="chevron-down" class="w-6 h-6"></i>
                         </span>
                     </summary>
-                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
-                        Більшість програм дають інформацію, але не дають системи і контролю. Тут фокус не на теорії, а на твоїй реальній ситуації: що саме у тебе не працює і як це виправити. Без загальних порад.
+                    <div
+                        class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
+                        Більшість програм дають інформацію, але не дають системи і контролю. Тут фокус не на теорії, а
+                        на твоїй реальній ситуації: що саме у тебе не працює і як це виправити. Без загальних порад.
                     </div>
                 </details>
 
                 <!-- Питання 3 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
-                        <span class="pr-6">3. А якщо у мене зараз повний хаос і немає навіть розуміння, що не так?</span>
+                    <summary
+                        class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
+                        <span class="pr-6">3. А якщо у мене зараз повний хаос і немає навіть розуміння, що не
+                            так?</span>
                         <span class="transition group-open:rotate-180 shrink-0 text-brand-500">
                             <i data-lucide="chevron-down" class="w-6 h-6"></i>
                         </span>
                     </summary>
-                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
-                        Це нормальна точка старту. Саме для цього і потрібна сесія — щоб розкласти все по поличках, знайти ключові проблеми і визначити перші кроки, які дадуть результат.
+                    <div
+                        class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
+                        Це нормальна точка старту. Саме для цього і потрібна сесія — щоб розкласти все по поличках,
+                        знайти ключові проблеми і визначити перші кроки, які дадуть результат.
                     </div>
                 </details>
 
                 <!-- Питання 4 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
+                    <summary
+                        class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">4. Скільки часу це займає і як проходить?</span>
                         <span class="transition group-open:rotate-180 shrink-0 text-brand-500">
                             <i data-lucide="chevron-down" class="w-6 h-6"></i>
                         </span>
                     </summary>
-                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
-                        Сесія триває 60 хвилин у форматі онлайн-зустрічі. Це жива робота один на один, де ми розбираємо твою ситуацію і формуємо план дій.
+                    <div
+                        class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
+                        Сесія триває 60 хвилин у форматі онлайн-зустрічі. Це жива робота один на один, де ми розбираємо
+                        твою ситуацію і формуємо план дій.
                     </div>
                 </details>
 
                 <!-- Питання 5 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
-                    <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
+                    <summary
+                        class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">5. Що буде після сесії? Чи вистачить одного разу?</span>
                         <span class="transition group-open:rotate-180 shrink-0 text-brand-500">
                             <i data-lucide="chevron-down" class="w-6 h-6"></i>
                         </span>
                     </summary>
-                    <div class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
-                        У тебе буде чітке розуміння, що робити далі і з чого почати. Для когось цього достатньо, щоб зрушити самостійно. Якщо потрібен глибший результат — можна продовжити роботу і впровадити систему під ключ.
+                    <div
+                        class="text-zinc-400 p-6 pt-0 border-t border-zinc-800/50 leading-relaxed text-base md:text-lg">
+                        У тебе буде чітке розуміння, що робити далі і з чого почати. Для когось цього достатньо, щоб
+                        зрушити самостійно. Якщо потрібен глибший результат — можна продовжити роботу і впровадити
+                        систему під ключ.
                     </div>
                 </details>
             </div>
         </div>
     </section>
 
-    <!-- FLOATING BUTTON (Тільки для мобільних) -->
+    <!-- FLOATING BUTTON (Мобільні) -->
     <div class="fixed bottom-4 left-4 right-4 z-40 md:hidden pointer-events-none flex justify-center">
-        <button onclick="openModal()" class="w-full max-w-sm pointer-events-auto px-6 py-4 bg-brand-500 text-white text-[17px] font-bold rounded-2xl shadow-[0_10px_30px_rgba(255,90,0,0.6)] border border-brand-400/50 flex justify-center items-center gap-2 active:scale-95 transition-transform">
+        <button onclick="openModal()"
+            class="w-full max-w-sm pointer-events-auto px-6 py-4 bg-brand-500 text-white text-[17px] font-bold rounded-2xl shadow-[0_10px_30px_rgba(255,90,0,0.6)] border border-brand-400/50 flex justify-center items-center gap-2 active:scale-95 transition-transform">
             <span>ХОЧУ НА РОЗБІР</span>
             <i data-lucide="arrow-right" class="w-5 h-5"></i>
         </button>
@@ -418,7 +440,8 @@
     <!-- MODAL POPUP -->
     <div id="leadModal" class="fixed inset-0 z-50 hidden flex items-center justify-center px-4">
         <div class="absolute inset-0 bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
-        <div class="relative bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-3xl p-8 shadow-2xl transform transition-all scale-95 opacity-0" id="modalContent">
+        <div class="relative bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-3xl p-8 shadow-2xl transform transition-all scale-95 opacity-0"
+            id="modalContent">
             <button onclick="closeModal()" class="absolute top-4 right-4 text-zinc-400 hover:text-white transition">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
@@ -429,7 +452,8 @@
             <form id="leadForm" class="space-y-5">
                 <div>
                     <label class="block text-sm font-medium text-zinc-400 mb-1">Ваше ім'я</label>
-                    <input type="text" id="name" required placeholder="Олександр" pattern="^[\D]+$" title="Ім'я не може містити цифри"
+                    <input type="text" id="name" required placeholder="Олександр" pattern="^[\D]+$"
+                        title="Ім'я не може містити цифри"
                         class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
                     <p id="nameError" class="text-red-500 text-xs mt-1 hidden">Ім'я не повинно містити цифри</p>
                 </div>
@@ -447,153 +471,36 @@
                             class="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-9 pr-4 py-3 text-white focus:outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 transition">
                     </div>
                 </div>
-                <button type="submit" id="submitBtn" class="w-full py-4 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl transition-all shadow-lg flex justify-center items-center gap-2 mt-2">
+                <button type="submit" id="submitBtn"
+                    class="w-full py-4 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl transition-all shadow-lg flex justify-center items-center gap-2 mt-2">
                     <span>ПІДТВЕРДИТИ</span>
                     <i data-lucide="arrow-right" class="w-5 h-5"></i>
                 </button>
+            </form>
+
+            <!-- Hidden WayForPay Form -->
+            <form id="wfpForm" action="https://secure.wayforpay.com/pay" method="post" class="hidden">
+                <input name="merchantAccount" value="">
+                <input name="merchantDomainName" value="">
+                <input name="merchantSignature" value="">
+                <input name="orderReference" value="">
+                <input name="orderDate" value="">
+                <input name="amount" value="">
+                <input name="currency" value="">
+                <input name="productName[]" value="">
+                <input name="productCount[]" value="">
+                <input name="productPrice[]" value="">
+                <input name="returnUrl" value="">
+                <input name="declineUrl" value="">
+                <input name="serviceUrl" value="">
             </form>
         </div>
     </div>
 
     <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/intlTelInput.min.js"></script>
-    <script>
-        lucide.createIcons();
-
-        // Settings
-        const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL'; // ВСТАВ URL СКРИПТА
-
-        // Modal Logic
-        const modal = document.getElementById('leadModal');
-        const modalContent = document.getElementById('modalContent');
-        
-        function openModal() {
-            modal.classList.remove('hidden');
-            setTimeout(() => {
-                modalContent.classList.remove('scale-95', 'opacity-0');
-                modalContent.classList.add('scale-100', 'opacity-100');
-            }, 10);
-            fbq('track', 'InitiateCheckout');
-        }
-
-        function closeModal() {
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            modalContent.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 200);
-        }
-
-        // Phone Input & Validation setup
-        const phoneInputField = document.querySelector("#phone");
-        const iti = window.intlTelInput(phoneInputField, {
-            initialCountry: "auto",
-            excludeCountries: ["ru", "by"],
-            geoIpLookup: function(callback) {
-                fetch("https://get.geojs.io/v1/ip/country.json")
-                    .then(resp => resp.json())
-                    .then(data => callback(data.country))
-                    .catch(() => callback("ua"));
-            },
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/18.2.1/js/utils.js",
-        });
-
-        // Timer
-        function startTimer(duration, display) {
-            let timer = duration, minutes, seconds;
-            const interval = setInterval(function () {
-                minutes = parseInt(timer / 60, 10);
-                seconds = parseInt(timer % 60, 10);
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-                display.textContent = minutes + ":" + seconds;
-                if (--timer < 0) {
-                    timer = 0;
-                    clearInterval(interval);
-                }
-            }, 1000);
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const display = document.querySelector('#hero-timer');
-            if (display) {
-                startTimer(10 * 60, display);
-            }
-        });
-
-        function getUTMs() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                source: params.get('utm_source') || '',
-                medium: params.get('utm_medium') || '',
-                campaign: params.get('utm_campaign') || '',
-                content: params.get('utm_content') || '',
-                term: params.get('utm_term') || ''
-            };
-        }
-
-        // Form Submission
-        document.getElementById('leadForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const nameInput = document.getElementById('name');
-            const telegramInput = document.getElementById('telegram');
-            const phoneError = document.getElementById('phoneError');
-            const nameError = document.getElementById('nameError');
-            const submitBtn = document.getElementById('submitBtn');
-
-            phoneError.classList.add('hidden');
-            nameError.classList.add('hidden');
-            phoneInputField.classList.remove('border-red-500');
-            nameInput.classList.remove('border-red-500');
-
-            if (/\d/.test(nameInput.value)) {
-                nameError.classList.remove('hidden');
-                nameInput.classList.add('border-red-500');
-                return;
-            }
-
-            if (!iti.isValidNumber()) {
-                phoneError.classList.remove('hidden');
-                phoneInputField.classList.add('border-red-500');
-                return;
-            }
-
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Завантаження...';
-            lucide.createIcons();
-
-            const utms = getUTMs();
-            const payload = {
-                date: new Date().toLocaleString("uk-UA"),
-                name: nameInput.value.trim(),
-                phone: iti.getNumber(),
-                telegram: telegramInput.value.trim(),
-                utm_source: utms.source,
-                utm_medium: utms.medium,
-                utm_campaign: utms.campaign,
-                utm_content: utms.content,
-                utm_term: utms.term
-            };
-
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(payload)
-                });
-
-                if (response.ok) {
-                    fbq('track', 'Lead');
-                    // РЕДІРЕКТ НА СТОРІНКУ ПОДЯКИ ІЗ ЗБЕРЕЖЕННЯМ UTM (щоб не згубити стату)
-                    window.location.href = 'thanks.html' + window.location.search; 
-                } else {
-                    throw new Error('Network response was not ok');
-                }
-            } catch (error) {
-                alert("Сталася помилка при відправці. Спробуйте ще раз.");
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>ПІДТВЕРДИТИ</span><i data-lucide="arrow-right" class="w-5 h-5"></i>';
-                lucide.createIcons();
-            }
-        });
-    </script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>
