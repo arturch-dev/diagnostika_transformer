@@ -201,16 +201,21 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
     wfpForm.querySelector('[name="merchantSignature"]').value = signature;
 
     // 5. Set Redirect URLs
-    // We use Google Apps Script as a proxy for redirects to solve two problems:
-    // 1. HTTP 405 error on Vercel (static sites don't accept POST requests).
-    // 2. Browser security blocks on Localhost (HTTPS -> HTTP redirection from frames).
-    const gasBaseUrl = APP_CONFIG.API_ENDPOINT;
-    const currentOrigin = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/');
+    // We use returnMethod: 'GET' to ensure WayForPay redirects back using a GET request.
+    // This avoids HTTP 405 errors on Vercel and security blocks on Localhost.
+    let baseUrl = window.location.origin + window.location.pathname;
+    if (baseUrl.endsWith('.html')) {
+        baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/'));
+    } else if (baseUrl.endsWith('/')) {
+        baseUrl = baseUrl.slice(0, -1);
+    }
+
+    const urlParams = window.location.search;
     
-    // WayForPay will POST to GAS, and GAS will return HTML that redirects the top window via GET.
-    wfpForm.querySelector('[name="returnUrl"]').value = `${gasBaseUrl}?action=redirect&target=thanks&origin=${encodeURIComponent(currentOrigin)}`;
-    wfpForm.querySelector('[name="declineUrl"]').value = `${gasBaseUrl}?action=redirect&target=failed&origin=${encodeURIComponent(currentOrigin)}`;
-    wfpForm.querySelector('[name="serviceUrl"]').value = gasBaseUrl;
+    wfpForm.querySelector('[name="returnUrl"]').value = baseUrl + '/thanks.html' + urlParams;
+    wfpForm.querySelector('[name="declineUrl"]').value = baseUrl + '/failed.html' + urlParams;
+    wfpForm.querySelector('[name="serviceUrl"]').value = APP_CONFIG.API_ENDPOINT;
+    wfpForm.querySelector('[name="returnMethod"]').value = 'GET';
 
     if (window.fbq) fbq('track', 'Lead');
     
