@@ -15,7 +15,7 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '937221912419607'); // ВСТАВ СВІЙ ID ПІКСЕЛЯ
+    fbq('init', '937221912419607'); 
     fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
@@ -50,6 +50,10 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
+    <!-- WayForPay Widget & Crypto-JS для генерації підпису -->
+    <script id="widget-wfp-script" language="javascript" type="text/javascript" src="https://secure.wayforpay.com/server/pay-widget.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f8fafc; }
         .iti { width: 100%; }
@@ -63,7 +67,6 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Приховати стандартний трикутник в FAQ */
         details > summary { list-style: none; }
         details > summary::-webkit-details-marker { display: none; }
     </style>
@@ -258,7 +261,6 @@
                 <!-- Ліве Фото (До) -->
                 <div class="w-full md:w-[30%]">
                     <div class="w-full h-[400px] md:h-[550px] rounded-2xl overflow-hidden shadow-lg border border-zinc-800">
-                        <!-- ВСТАВ СВОЄ ФОТО "ДО" -->
                         <img src="before1.jpg" alt="До" class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -277,7 +279,7 @@
                         </ul>
                     </div>
 
-                    <!-- Декоративна лінія (опціонально для дизайну) -->
+                    <!-- Декоративна лінія -->
                     <div class="w-12 h-1 bg-zinc-800 rounded-full"></div>
 
                     <!-- Точка Б -->
@@ -296,7 +298,6 @@
                 <!-- Праве Фото (Після) -->
                 <div class="w-full md:w-[30%]">
                     <div class="w-full h-[400px] md:h-[550px] rounded-2xl overflow-hidden shadow-lg border border-brand-500/30">
-                        <!-- ВСТАВ СВОЄ ФОТО "ПІСЛЯ" -->
                         <img src="after1.jpg" alt="Після" class="w-full h-full object-cover">
                     </div>
                 </div>
@@ -339,7 +340,6 @@
             <h2 class="text-3xl md:text-5xl font-bold mb-12 text-center text-white">Часті питання</h2>
             
             <div class="space-y-4">
-                <!-- Питання 1 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
                     <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">1. Це черговий коучинг “про поговорити”?</span>
@@ -352,7 +352,6 @@
                     </div>
                 </details>
 
-                <!-- Питання 2 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
                     <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">2. У мене вже був досвід курсів/коучів і це не дало результату. Чим це відрізняється?</span>
@@ -365,7 +364,6 @@
                     </div>
                 </details>
 
-                <!-- Питання 3 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
                     <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">3. А якщо у мене зараз повний хаос і немає навіть розуміння, що не так?</span>
@@ -378,7 +376,6 @@
                     </div>
                 </details>
 
-                <!-- Питання 4 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
                     <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">4. Скільки часу це займає і як проходить?</span>
@@ -391,7 +388,6 @@
                     </div>
                 </details>
 
-                <!-- Питання 5 -->
                 <details class="group bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
                     <summary class="flex justify-between items-center font-bold cursor-pointer p-6 text-lg text-white hover:text-brand-500 transition-colors select-none">
                         <span class="pr-6">5. Що буде після сесії? Чи вистачить одного разу?</span>
@@ -424,7 +420,7 @@
             </button>
             <div class="text-center mb-8">
                 <h3 class="text-2xl font-bold text-white mb-2">Реєстрація на розбір</h3>
-                <p class="text-zinc-400 text-sm">Залиште свої дані, щоб закріпити місце</p>
+                <p class="text-zinc-400 text-sm">Залиште свої дані, щоб перейти до оплати</p>
             </div>
             <form id="leadForm" class="space-y-5">
                 <div>
@@ -448,8 +444,8 @@
                     </div>
                 </div>
                 <button type="submit" id="submitBtn" class="w-full py-4 bg-brand-500 hover:bg-brand-600 text-white font-bold rounded-xl transition-all shadow-lg flex justify-center items-center gap-2 mt-2">
-                    <span>ПІДТВЕРДИТИ</span>
-                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    <span>ПЕРЕЙТИ ДО ОПЛАТИ</span>
+                    <i data-lucide="credit-card" class="w-5 h-5"></i>
                 </button>
             </form>
         </div>
@@ -460,8 +456,15 @@
     <script>
         lucide.createIcons();
 
-        // Settings
-        const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL'; // ВСТАВ URL СКРИПТА
+        // НАЛАШТУВАННЯ
+        const GOOGLE_SCRIPT_URL = 'YOUR_GOOGLE_SCRIPT_URL'; // ВСТАВ СЮДИ ПОСИЛАННЯ НА GOOGLE APPS SCRIPT
+        
+        // WayForPay Дані
+        const WFP_MERCHANT_ACCOUNT = "www_instagram_com2361";
+        const WFP_SECRET_KEY = "a82c3621f0f5ca58a8ffefc594c842ac430080d2";
+        const WFP_AMOUNT = "1000";
+        const WFP_CURRENCY = "UAH";
+        const WFP_PRODUCT_NAME = "Коуч-сесія";
 
         // Modal Logic
         const modal = document.getElementById('leadModal');
@@ -482,7 +485,7 @@
             setTimeout(() => modal.classList.add('hidden'), 200);
         }
 
-        // Phone Input & Validation setup
+        // Phone Input
         const phoneInputField = document.querySelector("#phone");
         const iti = window.intlTelInput(phoneInputField, {
             initialCountry: "auto",
@@ -498,25 +501,22 @@
 
         // Timer
         function startTimer(duration, display) {
-            let timer = duration, minutes, seconds;
+            let timer = duration, hours, minutes, seconds;
             const interval = setInterval(function () {
-                minutes = parseInt(timer / 60, 10);
+                hours = parseInt(timer / 3600, 10);
+                minutes = parseInt((timer % 3600) / 60, 10);
                 seconds = parseInt(timer % 60, 10);
+                hours = hours < 10 ? "0" + hours : hours;
                 minutes = minutes < 10 ? "0" + minutes : minutes;
                 seconds = seconds < 10 ? "0" + seconds : seconds;
-                display.textContent = minutes + ":" + seconds;
-                if (--timer < 0) {
-                    timer = 0;
-                    clearInterval(interval);
-                }
+                display.textContent = hours + ":" + minutes + ":" + seconds;
+                if (--timer < 0) { timer = 0; clearInterval(interval); }
             }, 1000);
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             const display = document.querySelector('#hero-timer');
-            if (display) {
-                startTimer(10 * 60, display);
-            }
+            if (display) { startTimer(24 * 60 * 60, display); }
         });
 
         function getUTMs() {
@@ -530,7 +530,7 @@
             };
         }
 
-        // Form Submission
+        // Форма і WayForPay
         document.getElementById('leadForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -558,11 +558,14 @@
             }
 
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Завантаження...';
+            submitBtn.innerHTML = '<i data-lucide="loader-2" class="w-5 h-5 animate-spin"></i> Обробка...';
             lucide.createIcons();
 
             const utms = getUTMs();
+            
+            // 1. Відправляємо ЛІД у таблицю (Ціна порожня)
             const payload = {
+                action: "create_lead",
                 date: new Date().toLocaleString("uk-UA"),
                 name: nameInput.value.trim(),
                 phone: iti.getNumber(),
@@ -579,18 +582,66 @@
                     method: 'POST',
                     body: JSON.stringify(payload)
                 });
+                
+                const data = await response.json();
+                const currentRowId = data.rowId; // Отримуємо номер рядка з таблиці
 
-                if (response.ok) {
+                // 2. Формуємо оплату WayForPay
+                const wayforpay = new Wayforpay();
+                const orderRef = "ORDER_" + Date.now();
+                const orderDate = Math.floor(Date.now() / 1000);
+                const domain = window.location.hostname || "transformer.com";
+                
+                // Створення підпису (Signature)
+                const stringToHash = `${WFP_MERCHANT_ACCOUNT};${domain};${orderRef};${orderDate};${WFP_AMOUNT};${WFP_CURRENCY};${WFP_PRODUCT_NAME};1;${WFP_AMOUNT}`;
+                const signature = CryptoJS.HmacMD5(stringToHash, WFP_SECRET_KEY).toString();
+
+                wayforpay.run({
+                    merchantAccount : WFP_MERCHANT_ACCOUNT,
+                    merchantDomainName : domain,
+                    orderReference : orderRef,
+                    orderDate : orderDate,
+                    amount : WFP_AMOUNT,
+                    currency : WFP_CURRENCY,
+                    productName : [WFP_PRODUCT_NAME],
+                    productCount : [1],
+                    productPrice : [WFP_AMOUNT],
+                    clientFirstName : nameInput.value.trim(),
+                    clientPhone: iti.getNumber(),
+                    merchantSignature : signature
+                },
+                async function (response) {
+                    // ОПЛАТА УСПІШНА
                     fbq('track', 'Lead');
-                    // РЕДІРЕКТ НА СТОРІНКУ ПОДЯКИ ІЗ ЗБЕРЕЖЕННЯМ UTM (щоб не згубити стату)
-                    window.location.href = 'thanks.html' + window.location.search; 
-                } else {
-                    throw new Error('Network response was not ok');
-                }
+                    
+                    // Відправляємо запит на оновлення колонки "Ціна" в таблиці
+                    await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            action: "update_payment",
+                            rowId: currentRowId,
+                            price: WFP_AMOUNT
+                        })
+                    });
+                    
+                    // Редірект на сторінку подяки
+                    window.location.href = 'thanks.html' + window.location.search;
+                },
+                function (response) {
+                    // ВІДХИЛЕНО
+                    alert("Оплату відхилено. Спробуйте ще раз або іншою картою.");
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<span>ПЕРЕЙТИ ДО ОПЛАТИ</span><i data-lucide="credit-card" class="w-5 h-5"></i>';
+                    lucide.createIcons();
+                },
+                function (response) {
+                    // В ОБРОБЦІ
+                });
+
             } catch (error) {
-                alert("Сталася помилка при відправці. Спробуйте ще раз.");
+                alert("Сталася помилка. Перевірте з'єднання та спробуйте ще раз.");
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = '<span>ПІДТВЕРДИТИ</span><i data-lucide="arrow-right" class="w-5 h-5"></i>';
+                submitBtn.innerHTML = '<span>ПЕРЕЙТИ ДО ОПЛАТИ</span><i data-lucide="credit-card" class="w-5 h-5"></i>';
                 lucide.createIcons();
             }
         });
