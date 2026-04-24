@@ -18,7 +18,7 @@
     fbq('init', '937221912419607'); 
     
     // ВІДБИВАЄМО ПОДІЮ PURCHASE НА СТОРІНЦІ ПОДЯКИ
-    fbq('track', 'Purchase', {currency: "UAH", value: 1.00}); // Поміняй на 1000 коли закінчиш тести
+    fbq('track', 'Purchase', {currency: "UAH", value: 1.00}); // Коли зміниш на 1000, не забудь змінити тут
     </script>
     <noscript><img height="1" width="1" style="display:none"
     src="https://www.facebook.com/tr?id=937221912419607&ev=PageView&noscript=1"
@@ -82,31 +82,6 @@
 
     <script>
         lucide.createIcons();
-
-        // Логіка оновлення оплати в Google Таблиці
-        document.addEventListener("DOMContentLoaded", () => {
-            const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzZULRVimNoWWZ5LGPn1TaPk3COwCpOuENjNa5TM0jjZup91WoHoK25Q_8GFRrXyOzQ/exec'; 
-            const WFP_AMOUNT = "1"; // Поміняй на 1000 коли закінчиш тести
-
-            // Парсимо URL, шукаємо rowId
-            const params = new URLSearchParams(window.location.search);
-            const rowId = params.get('rowId');
-
-            // Якщо є rowId (значить прийшли після успішної оплати)
-            if (rowId) {
-                const payload = {
-                    action: "update_payment",
-                    rowId: parseInt(rowId),
-                    price: WFP_AMOUNT
-                };
-
-                // Відправляємо запит до таблиці, щоб проставити суму
-                fetch(GOOGLE_SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify(payload)
-                }).catch(e => console.error("Error updating sheet:", e));
-            }
-        });
     </script>
 </body>
 </html>
