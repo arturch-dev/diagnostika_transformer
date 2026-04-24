@@ -219,6 +219,9 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
 
     if (window.fbq) fbq('track', 'Lead');
     
+    // Save orderReference so thanks.html can check its actual status
+    localStorage.setItem('lastOrderRef', orderReference);
+    
     console.log('Redirecting to WayForPay...');
     wfpForm.submit();
 });
