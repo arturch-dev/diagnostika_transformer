@@ -586,13 +586,9 @@
                 const data = await response.json();
                 const currentRowId = data.rowId; // Отримуємо номер рядка з таблиці
 
-                // Динамічно формуємо URL для повернення
-                const url = new URL(window.location.href);
-                // Замінюємо поточний шлях на thanks.html
-                url.pathname = url.pathname.substring(0, url.pathname.lastIndexOf('/')) + '/thanks.html';
-                // Додаємо rowId як параметр
-                url.searchParams.set('rowId', currentRowId);
-                const finalReturnUrl = url.toString();
+                // ГЕНЕРУЄМО ПОСИЛАННЯ ДЛЯ РЕДІРЕКТУ НА GOOGLE SCRIPT
+                const targetUrl = window.location.origin + "/thanks.html";
+                const finalReturnUrl = GOOGLE_SCRIPT_URL + "?action=payment_success&rowId=" + currentRowId + "&price=" + WFP_AMOUNT + "&redirect=" + encodeURIComponent(targetUrl);
 
                 // 2. Формуємо оплату WayForPay
                 const wayforpay = new Wayforpay();
@@ -617,12 +613,22 @@
                     clientFirstName : nameInput.value.trim(),
                     clientPhone: iti.getNumber(),
                     merchantSignature : signature,
-                    returnUrl: finalReturnUrl // ПРИМУСОВИЙ РЕДІРЕКТ
+                    returnUrl: finalReturnUrl // WayForPay відправить клієнта на Google Script
                 },
-                function (response) {
-                    // Якщо відпрацював JS Callback
+                async function (response) {
+                    // Якщо оплата пройшла без редіректу (наприклад з ПК)
                     fbq('track', 'Lead');
-                    window.location.href = finalReturnUrl;
+                    
+                    await fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            action: "update_payment",
+                            rowId: currentRowId,
+                            price: WFP_AMOUNT
+                        })
+                    });
+                    
+                    window.location.href = targetUrl;
                 },
                 function (response) {
                     // ВІДХИЛЕНО
