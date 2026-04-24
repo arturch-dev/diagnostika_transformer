@@ -122,12 +122,26 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
     lucide.createIcons();
 
     const utms = getUTMs();
+    
+    // 1. Prepare Order Data
+    const orderReference = 'ORD-' + Date.now();
+    const orderDate = Math.floor(Date.now() / 1000);
+    let amount = 1000;
+    let productName = 'Коуч-сесія TRANSFORMER';
+    
+    if (isTestMode && testCode === '557913') {
+        amount = 1;
+        productName = '[TEST] ' + productName;
+    }
+
     const payload = {
         date: new Date().toLocaleString("uk-UA"),
         name: nameInput.value.trim(),
         phone: iti.getNumber(),
         telegram: telegramInput.value.trim(),
         testCode: testCode,
+        amount: amount,
+        orderReference: orderReference,
         utm_source: utms.source,
         utm_medium: utms.medium,
         utm_campaign: utms.campaign,
@@ -135,70 +149,73 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
         utm_term: utms.term
     };
 
-    // JSONP Implementation to bypass CORS
-    const callbackName = 'wfp_callback_' + Math.round(100000 * Math.random());
+    // 2. Generate WayForPay Signature (Client-Side for 100% reliability)
+    const merchantAccount = APP_CONFIG.WFP_MERCHANT_ACCOUNT;
+    const merchantDomainName = APP_CONFIG.WFP_MERCHANT_DOMAIN;
+    const merchantSecretKey = APP_CONFIG.WFP_MERCHANT_SECRET_KEY;
+    const currency = 'UAH';
+    const productCount = 1;
+    const productPrice = amount;
+
+    // String format: merchantAccount;merchantDomainName;orderReference;orderDate;amount;currency;productName;productCount;productPrice
+    const signatureString = [
+        merchantAccount,
+        merchantDomainName,
+        orderReference,
+        orderDate,
+        amount,
+        currency,
+        productName,
+        productCount,
+        productPrice
+    ].join(';');
     
-    // Create the global callback function
-    window[callbackName] = function(result) {
-        // Cleanup
-        delete window[callbackName];
-        const scriptElement = document.getElementById(callbackName + '_script');
-        if (scriptElement) scriptElement.remove();
+    const signature = CryptoJS.HmacMD5(signatureString, merchantSecretKey).toString();
 
-        console.log('GAS JSONP Response:', result);
+    // 3. Send Lead to Google Sheets (Non-blocking, ignore CORS errors)
+    try {
+        const params = new URLSearchParams();
+        Object.keys(payload).forEach(key => params.append(key, payload[key]));
+        
+        // Use no-cors to avoid AdBlock/CORS blocking the whole script
+        fetch(APP_CONFIG.API_ENDPOINT, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: params
+        }).catch(err => console.log('GAS fetch error (ignored):', err));
+    } catch (e) {
+        console.log('GAS submission error (ignored)', e);
+    }
 
-        if (result.status === 'success') {
-            console.log('Success! Preparing WayForPay form...');
-            if (window.fbq) fbq('track', 'Lead');
-            
-            // Наповнюємо форму WayForPay
-            const wfpForm = document.getElementById('wfpForm');
-            wfpForm.querySelector('[name="merchantAccount"]').value = result.merchantAccount;
-            wfpForm.querySelector('[name="merchantDomainName"]').value = result.merchantDomainName;
-            wfpForm.querySelector('[name="orderReference"]').value = result.orderReference;
-            wfpForm.querySelector('[name="orderDate"]').value = result.orderDate;
-            wfpForm.querySelector('[name="amount"]').value = result.amount;
-            wfpForm.querySelector('[name="currency"]').value = result.currency;
-            wfpForm.querySelector('[name="productName[]"]').value = result.productName[0];
-            wfpForm.querySelector('[name="productCount[]"]').value = result.productCount[0];
-            wfpForm.querySelector('[name="productPrice[]"]').value = result.productPrice[0];
-            wfpForm.querySelector('[name="merchantSignature"]').value = result.signature;
+    // 4. Submit to WayForPay Form Directly
+    const wfpForm = document.getElementById('wfpForm');
+    wfpForm.querySelector('[name="merchantAccount"]').value = merchantAccount;
+    wfpForm.querySelector('[name="merchantDomainName"]').value = merchantDomainName;
+    wfpForm.querySelector('[name="orderReference"]').value = orderReference;
+    wfpForm.querySelector('[name="orderDate"]').value = orderDate;
+    wfpForm.querySelector('[name="amount"]').value = amount;
+    wfpForm.querySelector('[name="currency"]').value = currency;
+    wfpForm.querySelector('[name="productName[]"]').value = productName;
+    wfpForm.querySelector('[name="productCount[]"]').value = productCount;
+    wfpForm.querySelector('[name="productPrice[]"]').value = productPrice;
+    wfpForm.querySelector('[name="merchantSignature"]').value = signature;
 
-            const baseUrl = window.location.origin + window.location.pathname.split('/').slice(0, -1).join('/');
-            const urlParams = window.location.search;
-            
-            wfpForm.querySelector('[name="returnUrl"]').value = baseUrl + '/thanks.html' + urlParams;
-            wfpForm.querySelector('[name="declineUrl"]').value = baseUrl + '/failed.html' + urlParams;
-            wfpForm.querySelector('[name="serviceUrl"]').value = GOOGLE_SCRIPT_URL;
+    // Use current URL origin and path as base, but ensure it works on Vercel/LiveServer
+    let baseUrl = window.location.origin + window.location.pathname;
+    if (baseUrl.endsWith('.html')) {
+        baseUrl = baseUrl.substring(0, baseUrl.lastIndexOf('/'));
+    } else if (baseUrl.endsWith('/')) {
+        baseUrl = baseUrl.slice(0, -1);
+    }
 
-            console.log('Submitting to WayForPay...');
-            wfpForm.submit();
-        } else {
-            console.error('GAS returned error status:', result);
-            alert("Помилка: " + (result.message || "Невідома помилка сервера"));
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnText;
-            lucide.createIcons();
-        }
-    };
-
-    // Construct JSONP request URL
-    const submissionParams = new URLSearchParams();
-    Object.keys(payload).forEach(key => submissionParams.append(key, payload[key]));
-    submissionParams.append('callback', callbackName);
-
-    const script = document.createElement('script');
-    script.id = callbackName + '_script';
-    script.src = GOOGLE_SCRIPT_URL + (GOOGLE_SCRIPT_URL.includes('?') ? '&' : '?') + submissionParams.toString();
+    const urlParams = window.location.search;
     
-    script.onerror = function() {
-        console.error('JSONP script load failed');
-        alert("Сталася помилка при з'єднанні з сервером. Перевірте підключення.");
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnText;
-        lucide.createIcons();
-    };
+    wfpForm.querySelector('[name="returnUrl"]').value = baseUrl + '/thanks.html' + urlParams;
+    wfpForm.querySelector('[name="declineUrl"]').value = baseUrl + '/failed.html' + urlParams;
+    wfpForm.querySelector('[name="serviceUrl"]').value = APP_CONFIG.API_ENDPOINT;
 
-    console.log('Sending JSONP request to GAS...');
-    document.body.appendChild(script);
+    if (window.fbq) fbq('track', 'Lead');
+    
+    console.log('Redirecting to WayForPay...');
+    wfpForm.submit();
 });
