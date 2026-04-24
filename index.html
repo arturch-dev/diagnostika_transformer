@@ -568,7 +568,7 @@
             const utms = getUTMs();
             
             const payload = {
-                action: "init", // Кажемо скрипту, що це тільки збереження ліда
+                action: "init", // Збереження ліда БЕЗ ціни
                 date: new Date().toLocaleString("uk-UA"),
                 name: nameInput.value.trim(),
                 phone: iti.getNumber(),
@@ -582,14 +582,18 @@
             };
 
             try {
-                // Відправляємо дані у Google Sheet (поки що БЕЗ ЦІНИ)
+                // Відправляємо дані у Google Sheet (БЕЗ ЦІНИ)
                 const response = await fetch(GOOGLE_SCRIPT_URL, {
                     method: 'POST',
                     body: JSON.stringify(payload)
                 });
 
                 if (response.ok) {
-                    // Якщо успішно збережено в таблицю - відкриваємо оплату
+                    // ГАРАНТІЯ: Зберігаємо змінні для сторінки подяки ЩЕ ДО відкриття оплати
+                    localStorage.setItem("wfp_orderRef", orderRef);
+                    localStorage.setItem("wfp_price", PAYMENT_AMOUNT);
+                    
+                    // Відкриваємо оплату
                     startWayForPayWidget(orderRef, payload.name, payload.phone);
                 } else {
                     throw new Error('Network response was not ok');
@@ -609,7 +613,11 @@
             const currency = "UAH";
             const productName = "Коуч-сесія | Transformer";
             
-            // Формування підпису (суворий порядок для 1 товару згідно API WFP)
+            // Запасний URL для редіректу (якщо 3D Secure виб'є юзера з фрейму)
+            const baseUrl = window.location.href.split('?')[0].replace('index.html', '');
+            const successUrl = baseUrl + (baseUrl.endsWith('/') ? '' : '/') + 'thanks.html';
+            
+            // Формування підпису
             const hashString = `${MERCHANT_ACCOUNT};${domain};${orderRef};${orderDate};${PAYMENT_AMOUNT};${currency};${productName};1;${PAYMENT_AMOUNT}`;
             const signature = CryptoJS.HmacMD5(hashString, MERCHANT_SECRET).toString();
 
@@ -629,22 +637,18 @@
                 productCount: [1],
                 clientFirstName: clientName,
                 clientPhone: clientPhone,
-                language: "UA"
+                language: "UA",
+                returnUrl: successUrl // Додано запасний редірект
             },
             function (response) {
-                // ПЛАТІЖ УСПІШНИЙ!
+                // ПЛАТІЖ УСПІШНИЙ (Approved)
                 fbq('track', 'Lead');
-                
-                // Зберігаємо змінні для сторінки подяки (щоб вона могла відправити ціну в таблицю)
-                localStorage.setItem("wfp_orderRef", orderRef);
-                localStorage.setItem("wfp_price", PAYMENT_AMOUNT);
-                
-                // Переходимо на сторінку подяки із збереженням UTM
                 window.location.href = 'thanks.html' + window.location.search;
             },
             function (response) {
-                // ПЛАТІЖ ВІДХИЛЕНО АБО ЗАКРИТО КОРИСТУВАЧЕМ
-                // (Дані в таблиці вже збережені, ви зможете йому зателефонувати)
+                // ПЛАТІЖ ВІДХИЛЕНО (Declined)
+                localStorage.removeItem("wfp_orderRef");
+                localStorage.removeItem("wfp_price");
                 alert("Оплату відхилено або вікно закрито. Спробуйте ще раз.");
                 const btn = document.getElementById('submitBtn');
                 btn.disabled = false;
@@ -652,7 +656,9 @@
                 lucide.createIcons();
             },
             function (response) {
-                // Pending (Очікування)
+                // ПЛАТІЖ В ОБРОБЦІ (Pending) - ТЕПЕР ТЕЖ РОБИМО РЕДІРЕКТ
+                fbq('track', 'Lead');
+                window.location.href = 'thanks.html' + window.location.search;
             });
         }
     </script>
