@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Дякуємо! | TRANSFORMER</title>
 
-    <!-- Meta Pixel Code -->
+    <!-- Meta Pixel Code Purchase -->
     <script>
         !function (f, b, e, v, n, t, s) {
             if (f.fbq) return; n = f.fbq = function () {
                 n.callMethod ?
-                n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
             };
             if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
             n.queue = []; t = b.createElement(e); t.async = !0;
@@ -19,13 +19,9 @@
             s.parentNode.insertBefore(t, s)
         }(window, document, 'script',
             'https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', '937221912419607'); // ВСТАВ СВІЙ ID ПІКСЕЛЯ
-
-        // ВІДБИВАЄМО ПОДІЮ PURCHASE НА СТОРІНЦІ ПОДЯКИ
-        fbq('track', 'Purchase', { currency: "UAH", value: 1000.00 }); 
+        fbq('init', '937221912419607');
+        fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none"
-            src="https://www.facebook.com/tr?id=YOUR_PIXEL_ID&ev=PageView&noscript=1" /></noscript>
     <!-- End Meta Pixel Code -->
 
     <!-- Tailwind CSS -->
@@ -48,7 +44,6 @@
         }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
@@ -57,55 +52,136 @@
             background-color: #09090b;
             color: #f8fafc;
         }
+
+        .glass-panel {
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .animate-spin-slow {
+            animation: spin 3s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 
-<body class="antialiased flex items-center justify-center min-h-screen p-4">
+<body class="antialiased min-h-screen flex items-center justify-center px-4">
 
-    <!-- Фонові ефекти -->
-    <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-        <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-brand-500 opacity-20 blur-[150px] rounded-full">
-        </div>
-    </div>
-
-    <!-- Контент -->
-    <div
-        class="relative z-10 w-full max-w-lg bg-zinc-900/80 backdrop-blur-md border border-zinc-800 rounded-3xl p-8 md:p-12 text-center shadow-2xl">
-
-        <div class="flex justify-center mb-6">
-            <div
-                class="w-20 h-20 bg-brand-500/10 rounded-full flex items-center justify-center border border-brand-500/30">
-                <i data-lucide="check-circle" class="w-10 h-10 text-brand-500"></i>
+    <!-- LOADING STATE -->
+    <div id="loadingState" class="max-w-md w-full text-center space-y-8 py-12">
+        <div class="relative inline-flex mb-4">
+            <div class="w-24 h-24 rounded-full border-4 border-zinc-800 border-t-brand-500 animate-spin"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <i data-lucide="shield-check" class="w-10 h-10 text-brand-500 animate-pulse"></i>
             </div>
         </div>
-
-        <h1 class="text-3xl md:text-4xl font-extrabold text-white mb-4">Супер! Заявку прийнято.</h1>
-        <p class="text-lg text-zinc-400 mb-8 leading-relaxed">
-            Ваше місце на діагностику успішно заброньовано.<br><br>
-            <span class="text-white font-medium"></span> Я зв'яжусь із вами найближчим часом, а поки можете підписатися
-            на мій інстаграм щоб не втратити зв'язок.
-        </p>
-
-        <!-- КНОПКА В БОТА -->
-        <!-- ЗАМІНИ YOUR_BOT_LINK НА РЕАЛЬНЕ ПОСИЛАННЯ -->
-        <a href="https://www.instagram.com/vova.win"
-            class="inline-flex w-full justify-center items-center gap-3 px-8 py-5 bg-[#0088cc] hover:bg-[#0077b5] text-white text-[19px] font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(0,136,204,0.4)] hover:shadow-[0_0_30px_rgba(0,136,204,0.6)] transform hover:-translate-y-1">
-            <i data-lucide="send" class="w-6 h-6"></i>
-            <span>ПЕРЕЙТИ В ІНСТАГРАМ</span>
-        </a>
+        <div class="space-y-4">
+            <h1 class="text-3xl font-extrabold text-white">Перевірка оплати</h1>
+            <p class="text-zinc-400 text-lg">Будь ласка, зачекайте кілька секунд, поки ми підтверджуємо ваш платіж...
+            </p>
+        </div>
     </div>
 
+    <!-- SUCCESS CONTENT -->
+    <div id="successContent" class="hidden max-w-md w-full text-center space-y-8 py-12">
+        <div
+            class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-green-500/10 border border-green-500/20 mb-4">
+            <i data-lucide="check-circle" class="w-12 h-12 text-green-500"></i>
+        </div>
+
+        <div class="space-y-4">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight">
+                УРА! ЗАЯВКУ <span class="text-brand-500 uppercase">ПРИЙНЯТО</span>
+            </h1>
+            <p class="text-zinc-400 text-lg">
+                Ваша оплата пройшла успішно. Тепер ви офіційно в списку учасників коуч-сесії!
+            </p>
+        </div>
+
+        <div class="glass-panel p-8 rounded-3xl space-y-6">
+            <div class="space-y-2">
+                <p class="text-sm text-zinc-500 uppercase tracking-widest font-bold">Наступний крок:</p>
+                <p class="text-zinc-300 font-medium">Перейдіть в мій Instagram і напишіть мені в особисті повідомлення
+                    для узгодження часу</p>
+            </div>
+
+            <a href="https://www.instagram.com/vova.win"
+                class="inline-flex w-full justify-center items-center gap-3 px-8 py-5 bg-[#0088cc] hover:bg-[#0077b5] text-white text-[19px] font-bold rounded-xl transition-all shadow-[0_0_20px_rgba(0,136,204,0.4)] hover:shadow-[0_0_30px_rgba(0,136,204,0.6)] transform hover:-translate-y-1">
+                <i data-lucide="send" class="w-6 h-6"></i>
+                <span>ПЕРЕЙТИ В ІНСТАГРАМ</span>
+            </a>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
     <script>
         lucide.createIcons();
 
-        // Перевірка статусу транзакції від WayForPay
-        // Якщо статус не Approved - перенаправляємо на сторінку помилки
+        const loadingState = document.getElementById('loadingState');
+        const successContent = document.getElementById('successContent');
+        const lastOrderRef = localStorage.getItem('lastOrderRef');
+
+        let checkCount = 0;
+        const MAX_CHECKS = 6; // ~18 seconds total
+
+        function showSuccess() {
+            loadingState.style.display = 'none';
+            successContent.classList.remove('hidden');
+            if (window.fbq) fbq('track', 'Purchase', { value: 1000, currency: 'UAH' });
+        }
+
+        function checkStatus() {
+            if (!lastOrderRef || typeof APP_CONFIG === 'undefined') {
+                setTimeout(showSuccess, 1500); // Simple delay if no ref
+                return;
+            }
+
+            const script = document.createElement('script');
+            const callbackName = 'statusCheck_' + Date.now();
+
+            window[callbackName] = function (data) {
+                console.log('Status update:', data.status);
+
+                if (data.status === 'Оплачено') {
+                    showSuccess();
+                } else if (data.status.includes('Відхилено') || data.status.includes('Error')) {
+                    window.location.href = 'failed.html' + window.location.search;
+                } else {
+                    checkCount++;
+                    if (checkCount < MAX_CHECKS) {
+                        setTimeout(checkStatus, 3000);
+                    } else {
+                        showSuccess(); // Timeout fallback
+                    }
+                }
+
+                delete window[callbackName];
+                document.body.removeChild(script);
+            };
+
+            script.src = APP_CONFIG.API_ENDPOINT + '?action=checkStatus&orderReference=' + encodeURIComponent(lastOrderRef) + '&callback=' + callbackName;
+            document.body.appendChild(script);
+        }
+
+        // Always check URL first as a priority
         const urlParams = new URLSearchParams(window.location.search);
-        const status = urlParams.get('transactionStatus');
-        
-        if (status && status !== 'Approved') {
+        const urlStatus = urlParams.get('transactionStatus') || urlParams.get('status');
+        if (urlStatus && urlStatus !== 'Approved') {
             window.location.href = 'failed.html' + window.location.search;
+        } else if (urlStatus === 'Approved') {
+            showSuccess();
+        } else {
+            checkStatus();
         }
     </script>
 </body>
