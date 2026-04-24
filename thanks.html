@@ -29,19 +29,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            500: '#ff5a00',
-                            600: '#e04f00',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
+            theme: { extend: { colors: { brand: { 500: '#ff5a00', 600: '#e04f00' } }, fontFamily: { sans: ['Inter', 'sans-serif'] } } }
         }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -61,7 +49,6 @@
 
     <!-- Контент -->
     <div class="relative z-10 w-full max-w-lg bg-zinc-900/80 backdrop-blur-md border border-zinc-800 rounded-3xl p-8 md:p-12 text-center shadow-2xl">
-        
         <div class="flex justify-center mb-6">
             <div class="w-20 h-20 bg-brand-500/10 rounded-full flex items-center justify-center border border-brand-500/30">
                 <i data-lucide="check-circle" class="w-10 h-10 text-brand-500"></i>
