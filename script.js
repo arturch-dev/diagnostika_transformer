@@ -126,7 +126,7 @@ document.getElementById('leadForm').addEventListener('submit', async (e) => {
     // 1. Prepare Order Data
     const orderReference = 'ORD-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
     const orderDate = Math.floor(Date.now() / 1000);
-    let amount = 1000;
+    let amount = 2000;
     let productName = 'Коуч-сесія TRANSFORMER';
     
     if (isTestMode && testCode === '557913') {

@@ -17,7 +17,7 @@ function setupEnvironment() {
 const CONSTANTS = {
   CURRENCY: 'UAH',
   PRODUCT_NAME: 'Коуч-сесія TRANSFORMER',
-  AMOUNT: 1000
+  AMOUNT: 2000
 };
 
 // --- CORE LOGIC ---
